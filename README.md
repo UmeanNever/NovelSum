@@ -5,5 +5,5 @@
 
 In this paper, we investigate the fundamental problem of precisely measuring dataset diversity for instruction tuning and propose *NovelSum*, a reliable diversity metric that strongly correlates with model performance. 
 
- - 📖 Paper on Arxiv.
+ - 📖 Paper: [Preprint on Arxiv](https://arxiv.org/abs/2502.17184)
  - 🎮 The related codes and resources will be released soon.
