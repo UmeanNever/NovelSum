@@ -56,7 +56,7 @@ def main():
     # 解析命令行参数
     parser = argparse.ArgumentParser(description="compute embedding for text files")
     
-    parser.add_argument("--input_dirs", nargs='+', required=True,
+    parser.add_argument("--input_dir", nargs='+', required=True,
                        help="The input directories containing text files")
     parser.add_argument("--model_path", required=True,
                        help="The path to the model")
@@ -69,7 +69,7 @@ def main():
     
     args = parser.parse_args()
     
-    all_files = get_files_paths(args.input_dirs)
+    all_files = get_files_paths(args.input_dir)
     print(f"There are {len(all_files)} files in total")
     
     if not all_files:

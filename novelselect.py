@@ -33,13 +33,15 @@ def bi_density_weighted_distance(matrix: torch.Tensor,
     
     return novelty_weighted
 
-def save_results(selected_data, output_text_dir: str, k: int, density_power: float, distance_power: float):
+def save_results(selected_data, indices, output_text_dir: str, k: int, density_power: float, distance_power: float):
     os.makedirs(output_text_dir, exist_ok=True)
     filename = f"novelselect_{k}_dense_{density_power}_dist_{distance_power}"
     with open(os.path.join(output_text_dir, f"{filename}.json"), 'w') as f:
         json.dump(selected_data, f, indent=2)
+    with open(os.path.join(output_text_dir, f"{filename}_indices.json"), 'w') as f:
+        json.dump(indices, f, indent=2)
 
-def novelselect(embeddings, k: int, gpu_id: int = 0, 
+def novelselect(embeddings, k: int, gpu_id: int = 0, neighbors: int = 10,
                   density_power: float = 0.5, distance_power: float = 1.0, 
                   batch_size: int = 10000, seed: int = None):
     set_seed(seed)
@@ -53,8 +55,9 @@ def novelselect(embeddings, k: int, gpu_id: int = 0,
         
         faiss_index = FaissIndex(embeddings, gpu_id)
         density_map = torch.tensor(
-            faiss_index.compute_local_density(
+            faiss_index.local_density(
                 embeddings, 
+                n_neighbors=neighbors,
                 power=density_power
             ), 
             device=device,
@@ -102,14 +105,17 @@ def main():
     parser.add_argument("--text_dir", type=str, required=True,
                        help="Directory containing text data")
     
-    parser.add_argument("--figure_base_dir", type=str, required=True,
+    parser.add_argument("--figure_dir", type=str, required=True,
                        help="Base directory for embedding figures")
     
-    parser.add_argument("--output_base_dir", type=str, required=True,
+    parser.add_argument("--output_dir", type=str, required=True,
                        help="Base directory for output")
     
     parser.add_argument("--k", type=int, default=10000,
                        help="Number of samples to select")
+    
+    parser.add_argument("--neighbors", type=int, default=10,
+                        help="Number of neighbors for density calculation")
     
     parser.add_argument("--density_power", type=float, default=0.5,
                        help="Power parameter for density calculation")
@@ -127,8 +133,8 @@ def main():
     
     set_seed(args.seed)
 
-    print(f"Loading embeddings from {args.figure_base_dir}")
-    embeddings = load_dir_data(args.figure_base_dir)
+    print(f"Loading embeddings from {args.figure_dir}")
+    embeddings = load_dir_data(args.figure_dir)
     print(f"Loading text data from {args.text_dir}")
     text = load_dir_data(args.text_dir)
     print(f"Loaded embeddings: {embeddings.shape}, text: {len(text)} items")
@@ -140,6 +146,7 @@ def main():
         embeddings,
         k=args.k,
         gpu_id=args.gpu_id,
+        neighbors=args.neighbors,
         density_power=args.density_power,
         distance_power=args.distance_power,
         seed=args.seed
@@ -147,7 +154,7 @@ def main():
     
     selected_text = text[centers_indices].tolist()
     save_results(
-        selected_text, centers_indices, args.output_base_dir, args.k, args.gpu_id, args.density_power, args.distance_power
+        selected_text, centers_indices, args.output_dir, args.k, args.density_power, args.distance_power
     )
     print("Selection completed successfully!")
 
