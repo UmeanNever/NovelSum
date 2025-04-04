@@ -13,7 +13,7 @@
 In this research, we tackle the fundamental challenge of accurately measuring dataset diversity for instruction tuning and introduce **NovelSum**, a reliable diversity metric that demonstrates strong correlation with model performance. Furthermore, we leverage NovelSum as an optimization objective to develop a greedy diversity-oriented data selection strategy called **NovelSelect** that outperforms existing approaches, validating both the effectiveness and practical significance of our metric.
 
 - 📖 **Paper**: [Read our paper on arXiv](https://arxiv.org/abs/2502.17184)
-- 🛠️ **Code**: All implementation code and resources are available in this repository
+- 🛠️ **Code**: All codes and resources are available in this repository.
 
 ## 📑 Table of Contents
 
@@ -174,14 +174,14 @@ Options:
 
 ## 🔍 Extensions
 
-In our research, we utilized base models for embedding calculations, but for practical applications, we recommend employing specialized LLM-based embedding models that have been fine-tuned specifically for embedding tasks to achieve superior results.
+In our implementation, we used pretrained base models for sample embedding calculations, primarily for research purposes. For practical applications, you may choose to employ state-of-the-art (SOTA) LLM-based embedding models that have been fine-tuned specifically for embedding tasks to achieve potentially superior performance.
 
-Based on our comprehensive ablation studies, we recommend the following hyperparameter configuration for optimal alignment with model performance and high-quality dataset selection:
+Based on our comprehensive hyperparameter analysis, we recommend the following configuration, which demonstrates generalizable alignment with model performance and facilitates the selection of high-quality datasets:
 - `density_power`: 0.5
 - `proximity_power`: 1
 - `neighbors`: 10
 
-When extending our methodology to specialized domains such as code repositories or mathematical problem sets, we encourage experimenting with different hyperparameter combinations guided by our experimental framework to discover optimal configurations for your specific use case.
+When adapting our methodology to specialized domains such as code generation or mathematical problems, the above settings serve as a solid starting point. If needed, you can experiment with different hyperparameter combinations, using our practice as a guide, to identify the best configurations tailored to your specific use case.
 
 ## 📝 Citation
 
