@@ -148,10 +148,11 @@ Options:
 
 ### NovelSelect Strategy
 
+The code efficiently processes your dataset and returns two outputs: the selected text samples and their corresponding indices. Please structure your input text as a list—this can be either raw text content or formatted training data.
+
 <details>
   <summary><b>NovelSelect Options</b></summary>
-
-The code efficiently processes your dataset and returns two outputs: the selected text samples and their corresponding indices. Please structure your input text as a list—this can be either raw text content or formatted training data. 
+ 
 
 ```
 Usage: python novelselect.py [OPTIONS]
