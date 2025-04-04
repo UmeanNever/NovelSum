@@ -174,7 +174,7 @@ Options:
 
 ## 🔍 Extensions
 
-In our implementation, we used pretrained base models for sample embedding calculations, primarily for research purposes. For practical applications, you may choose to employ state-of-the-art (SOTA) LLM-based embedding models that have been fine-tuned specifically for embedding tasks to achieve potentially superior performance.
+In our implementation, we used pretrained base models for sample embedding calculations, primarily for research purposes. For practical applications, you may choose to employ SOTA LLM-based embedding models that have been fine-tuned specifically for embedding tasks to achieve potentially superior performance.
 
 Based on our comprehensive hyperparameter analysis, we recommend the following configuration, which demonstrates generalizable alignment with model performance and facilitates the selection of high-quality datasets:
 - `density_power`: 0.5
