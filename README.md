@@ -39,10 +39,14 @@ pip install -r requirements.txt
 
 ### Calculate NovelSum for a dataset
 
-To calculate the NovelSum of a dataset, provide a JSON file containing data embeddings and a reference directory used for estimating 'density':
+To compute the NovelSum of a dataset, provide a JSON file (or a directory of JSON files) containing data embeddings, along with a reference dataset directory used for estimating *density*:
 
 ```bash
-python novelsum.py --single_dataset_path input_data.json --dense_ref_dir your_dir --output_csv output.csv
+python novelsum.py --single_dataset_path input_data.json --dense_ref_dir your_ref_dir --output_csv output.csv
+```
+or 
+```bash
+python novelsum.py --multi_datasets_dir your_dir --dense_ref_dir your_ref_dir --output_csv output.csv
 ```
 
 ### Use NovelSelect for data selection
@@ -56,6 +60,8 @@ python novelselect.py --text_dir your_first_dir --figure_dir your_embedding_dir 
 ## 📚 Usage Guide
 
 ### Data Format
+
+Both the target dataset (whose diversity is to be computed) and the reference (source) dataset (for estimating density or selecting samples from) use the same conversation-style data format and must be transformed into **sample embeddings** (one embedding vector for each sample in the dataset) before computing NovelSum or running NovelSelect.
 
 Due to the computational demands of processing large-scale embeddings, we recommend splitting your dataset into multiple JSON files, each containing approximately 5,000 data points (resulting in files of ~0.5GB).
 
@@ -88,8 +94,7 @@ Our implementation uses separate directories for storing text data and embedding
   <summary><b>Text Data Format (for embedding)</b></summary>
 
 ```
-Create a detailed and exhaustive HTML guide to assist potential buyers in making a well-informed decision when purchasing a laptop.
-...
+Create a detailed and exhaustive HTML guide to assist potential buyers in making a well-informed decision when purchasing a laptop.\n ...\n ...
 ```
 </details>
 
@@ -108,7 +113,7 @@ Create a detailed and exhaustive HTML guide to assist potential buyers in making
 
 ### Embedding Calculation
 
-You can generate embeddings for your dataset using various models. Thanks to vLLM, we were able to compute embeddings for 400,000 data points in just 2 hours using 8×H800 GPUs.
+You can generate embeddings for your dataset using various models. Thanks to vLLM, we were able to compute embeddings for 400,000 data points in just 2 hours using 8×H800 GPUs. You may refer to the following commands to embed both the target and reference (source) dataset.
 
 <details>
   <summary><b>Embedding Calculation Options</b></summary>
@@ -132,8 +137,11 @@ Options:
 
 ### NovelSum Metric
 
-<details>
-  <summary><b>NovelSum Calculation Options</b></summary>
+<!---<details>
+  <summary><b>NovelSum Calculation Options</b></summary>-->
+
+`single_dataset_path` (or `multi_datasets_dir`) and `dense_ref_dir` point to the embedding files of your target and source (reference) dataset, respectively. Both should be computed and saved in the same manner as illustrated above. 
+
 
 ```
 Usage: python novelsum.py [OPTIONS]
@@ -159,11 +167,10 @@ Options:
 
 ### NovelSelect Strategy
 
-The code efficiently processes your dataset and returns two outputs: the selected text samples and their corresponding indices. Please structure your input text as a list—this can be either raw text content or formatted training data.
+<!---<details>
+  <summary><b>NovelSelect Options</b></summary>-->
 
-<details>
-  <summary><b>NovelSelect Options</b></summary>
- 
+The code efficiently processes your dataset and returns two outputs: the selected text samples and their corresponding indices. Please structure your input text as a list—this can be either raw text content or formatted training data.
 
 ```
 Usage: python novelselect.py [OPTIONS]
