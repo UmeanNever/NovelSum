@@ -67,10 +67,20 @@ Our implementation uses separate directories for storing text data and embedding
   <summary><b>SFT Data Format</b></summary>
 
 ```json
-{
+[{
     "from": "user",
     "value": "Create a detailed and exhaustive HTML guide to assist potential buyers in making a well-informed decision when purchasing a laptop."
-}
+ },
+ {
+    "from": "assistant",
+    "value": "..."
+ },
+ {
+    "from": "user",
+    "value": "..."
+ },
+ ...
+]
 ```
 </details>
 
@@ -79,6 +89,7 @@ Our implementation uses separate directories for storing text data and embedding
 
 ```
 Create a detailed and exhaustive HTML guide to assist potential buyers in making a well-informed decision when purchasing a laptop.
+...
 ```
 </details>
 
