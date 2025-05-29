@@ -63,38 +63,43 @@ python novelselect.py --text_dir your_first_dir --figure_dir your_embedding_dir 
 
 Both the target dataset (whose diversity is to be computed) and the reference (source) dataset (for estimating density or selecting samples from) use the same conversation-style data format and must be transformed into **sample embeddings** (one embedding vector for each sample in the dataset) before computing NovelSum or running NovelSelect.
 
-Due to the computational demands of processing large-scale embeddings, we recommend splitting your dataset into multiple JSON files, each containing approximately 5,000 data points (resulting in files of ~0.5GB).
-
-Our implementation uses separate directories for storing text data and embeddings, with each JSON file named numerically (e.g., `18.json`). Both text and embedding data are organized as lists within these files.
+Due to the computational demands of processing large-scale embeddings, we recommend organizing the dataset as a directory of multiple JSON files, each containing approximately 5,000 samples (~0.5GB per file). In our implementation, text data and embeddings are stored in separate directories, with JSON files named numerically (e.g., `18.json`) for easy indexing and mapping. Each file contains a list of samples, with each entry storing either text or embedding data.
 
 #### Examples
 
 <details>
-  <summary><b>SFT Data Format</b></summary>
+  <summary><b>Raw SFT Data Format</b></summary>
 
 ```json
-[{
-    "from": "user",
-    "value": "Create a detailed and exhaustive HTML guide to assist potential buyers in making a well-informed decision when purchasing a laptop."
- },
- {
-    "from": "assistant",
-    "value": "..."
- },
- {
-    "from": "user",
-    "value": "..."
- },
+[
+ [
+  {
+     "from": "user",
+     "value": "Create a detailed and exhaustive HTML guide to assist potential buyers in making a well-informed decision when purchasing a laptop."
+  },
+  {
+     "from": "assistant",
+     "value": "..."
+  },
+  {
+     "from": "user",
+     "value": "..."
+  },
+  ...
+ ],
  ...
 ]
 ```
 </details>
 
 <details>
-  <summary><b>Text Data Format (for embedding)</b></summary>
+  <summary><b>Corresponding Text Data Format (used for embedding)</b></summary>
 
-```
-Create a detailed and exhaustive HTML guide to assist potential buyers in making a well-informed decision when purchasing a laptop.\n ...\n ...
+```json
+[
+ "Create a detailed and exhaustive HTML guide to assist potential buyers in making a well-informed decision when purchasing a laptop.\n ...\n ...",
+ ...
+]
 ```
 </details>
 
@@ -103,20 +108,23 @@ Create a detailed and exhaustive HTML guide to assist potential buyers in making
 
 ```json
 [
+ [
     -0.06069426238536835,
     -0.07991443574428558,
     ...
     0.04622051864862442
+ ],
+ ...
 ]
 ```
 </details>
 
 ### Embedding Calculation
 
-You can generate embeddings for your dataset using various models. Thanks to vLLM, we were able to compute embeddings for 400,000 data points in just 2 hours using 8×H800 GPUs. You may refer to the following commands to embed both the target and reference (source) dataset.
+You can generate embeddings for your dataset using various models. Thanks to vLLM, we were able to compute embeddings for 400,000 data points in just 2 hours using 8×H800 GPUs. You may refer to the following commands to embed both the target and reference (source) dataset. Note that your data should first be converted into text format—by joining conversation turns with `\n`—before generating embeddings, as shown in the example above.
 
-<details>
-  <summary><b>Embedding Calculation Options</b></summary>
+<!---<details>
+  <summary><b>Embedding Calculation Options</b></summary>-->
 
 ```
 Usage: python embedding.py [OPTIONS]
@@ -170,7 +178,7 @@ Options:
 <!---<details>
   <summary><b>NovelSelect Options</b></summary>-->
 
-The code efficiently processes your dataset and returns two outputs: the selected text samples and their corresponding indices. Please structure your input text as a list—this can be either raw text content or formatted training data.
+The code efficiently processes your dataset and returns two outputs: the selected text samples and their corresponding indices. Please structure your input text as a list—this can be either raw text content or formatted training data. By default, NovelSelect uses the input dataset as the reference dataset, but you may customize this by specifying a different dataset with precomputed embeddings.
 
 ```
 Usage: python novelselect.py [OPTIONS]
