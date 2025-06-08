@@ -10,20 +10,28 @@
 
 ## 📋 Overview
 
-In this research, we tackle the fundamental challenge of accurately measuring dataset diversity for instruction tuning and introduce **NovelSum**, a reliable diversity metric that demonstrates strong correlation with model performance. Furthermore, we leverage NovelSum as an optimization objective to develop a greedy diversity-oriented data selection strategy called **NovelSelect** that outperforms existing approaches, validating both the effectiveness and practical significance of our metric.
+In this research, we tackle the fundamental challenge of accurately measuring dataset diversity for instruction tuning and introduce **NovelSum**, a reliable diversity metric that jointly accounts for inter-sample distances and information density, and shows a strong correlation with model performance. Furthermore, we leverage NovelSum as an optimization objective to develop a greedy diversity-oriented data selection strategy called **NovelSelect** that outperforms existing approaches, validating both the effectiveness and practical significance of our metric.
 
 - 📖 **Paper**: [Read our paper on arXiv](https://arxiv.org/abs/2502.17184)
 - 🛠️ **Code**: All codes and resources are available in this repository.
+
+Our codebase supports the following functionalities:
+- **Dataset Diversity Measurement (NovelSum)**:  
+  Measures dataset diversity using our NovelSum metrics, which show a 0.97 correlation with instruction-tuned model performance. While our experiments focus on general instruction-tuning datasets, NovelSum is broadly applicable to textual datasets across various tasks. See Section 3 and 7 of our paper for details.
+- **Data Selection with Optimized Diversity (NovelSelect)**:  
+  Selects a diverse subset from a source dataset under a given data budget using our NovelSelect strategy, which outperforms other diversity-oriented data selection strategy. Notably, NovelSelect can seamlessly integrate with quality-based data selection methods. See Section 6 of our paper for more information.
+ 
 
 ## 📑 Table of Contents
 
 - [Installation](#-installation)
 - [Quick Start](#-quick-start)
 - [Usage Guide](#-usage-guide)
-  - [Data Format](#data-format)
-  - [Embedding Calculation](#embedding-calculation)
-  - [NovelSum Metric](#novelsum-metric)
-  - [NovelSelect Strategy](#novelselect-strategy)
+  * [Data Preparation](#data-preparation)
+    + [Examples](#examples)
+  * [Embedding Calculation](#embedding-calculation)
+  * [NovelSum Metric (Diversity Measurement)](#novelsum-metric-diversity-measurement)
+  * [NovelSelect Strategy (Data Selection)](#novelselect-strategy-data-selection)
 - [Extensions](#-extensions)
 - [Citation](#-citation)
 
@@ -57,13 +65,17 @@ To apply the NovelSelect strategy, specify text directory, embedding directory, 
 python novelselect.py --text_dir your_first_dir --figure_dir your_embedding_dir --output_dir output
 ```
 
+See below Usage Guide for details.
+
 ## 📚 Usage Guide
 
-### Data Format
+### Data Preparation
 
-Both the target dataset (whose diversity is to be computed) and the reference (source) dataset (for estimating density or selecting samples from) use the same conversation-style data format and must be transformed into **sample embeddings** (one embedding vector for each sample in the dataset) before computing NovelSum or running NovelSelect.
+The input to **NovelSum** consists of a target dataset and a source (reference) dataset, which is used to estimate the information density factor. If a reference dataset is not readily available, we suggest using a general large-scale (open-source) dataset that is relevant to your task. For instance, in our instruction-tuning experiments, we use a combined dataset consisting of WizardLM, ShareGPT, and UltraChat (using just one of them is also feasible) as the reference. In practice, the reference dataset can be flexibly chosen based on the task at hand; any domain-specific dataset may be used to compute NovelSum for specialized scenarios.
 
-Due to the computational demands of processing large-scale embeddings, we recommend organizing the dataset as a directory of multiple JSON files, each containing approximately 5,000 samples (~0.5GB per file). In our implementation, text data and embeddings are stored in separate directories, with JSON files named numerically (e.g., `18.json`) for easy indexing and mapping. Each file contains a list of samples, with each entry storing either text or embedding data.
+The input to **NovelSelect** requires only the source dataset (i.e., the dataset from which samples are selected).
+
+Both the target dataset and the source dataset use the same conversation-style data format and must be transformed into **sample embeddings** (one embedding vector for each sample in the dataset) before computing NovelSum or running NovelSelect. Due to the computational demands of processing large-scale embeddings, we recommend organizing the dataset as a directory of multiple JSON files, each containing approximately 5,000 samples (~0.5GB per file). In our implementation, text data and embeddings are stored in separate directories, with JSON files named numerically (e.g., `18.json`) for easy indexing and mapping. Each file contains a list of samples, with each entry storing either text or embedding data.
 
 #### Examples
 
@@ -143,7 +155,7 @@ Options:
 
 > **Note**: We truncate all sequences to 256 tokens to mitigate the influence of length variations on embedding distributions, as detailed in our paper.
 
-### NovelSum Metric
+### NovelSum Metric (Diversity Measurement)
 
 <!---<details>
   <summary><b>NovelSum Calculation Options</b></summary>-->
@@ -173,7 +185,7 @@ Options:
 
 > **Note**: Our code utilizes Faiss-GPU for accelerated density computation. If you don't have GPU resources available, you can modify the code to use Faiss-CPU instead.
 
-### NovelSelect Strategy
+### NovelSelect Strategy (Data Selection)
 
 <!---<details>
   <summary><b>NovelSelect Options</b></summary>-->
@@ -197,6 +209,8 @@ Options:
   --seed INT               Random seed for initial point selection (default: 42)
 ```
 </details>
+
+*For more information and a detailed introduction to NovelSum and NovelSelect, please refer to our paper.*
 
 ## 🔍 Extensions
 
@@ -222,7 +236,7 @@ If you use NovelSum in your research, please cite our paper:
 }
 ```
 
-### Acknowledgements
+## Acknowledgements
 
 We build upon the following excellent open-source frameworks:
 
