@@ -17,7 +17,7 @@ In this research, we tackle the fundamental challenge of accurately measuring da
 
 Our codebase supports the following functionalities:
 - **Dataset Diversity Measurement (NovelSum)**:  
-  Measures dataset diversity using our NovelSum metrics, which show a 0.97 correlation with instruction-tuned model performance. While our experiments focus on general instruction-tuning datasets, NovelSum is broadly applicable to textual datasets across various tasks. See Section 3 and 7 of our paper for details.
+  Measures dataset diversity using our NovelSum metrics, which show a 0.97 correlation with instruction-tuned model performance. While our experiments focus on general instruction-tuning datasets, NovelSum is broadly applicable to textual datasets across various tasks. See Section 3 and 7 of our paper for more information.
 - **Data Selection with Optimized Diversity (NovelSelect)**:  
   Selects a diverse subset from a source dataset under a given data budget using our NovelSelect strategy, which outperforms other diversity-oriented data selection strategy. Notably, NovelSelect can seamlessly integrate with quality-based data selection methods. See Section 6 of our paper for more information.
  
