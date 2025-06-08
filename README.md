@@ -160,7 +160,7 @@ Options:
 <!---<details>
   <summary><b>NovelSum Calculation Options</b></summary>-->
 
-`single_dataset_path` (or `multi_datasets_dir`) and `dense_ref_dir` point to the embedding files of your target and source (reference) dataset, respectively. Both should be computed and saved in the same manner as illustrated above. 
+`single_dataset_path` (or `multi_datasets_dir`) and `dense_ref_dir` point to the embedding files of your target and source (reference) dataset, respectively. Both should be computed and saved in the same manner as illustrated in the data preparation sections above.
 
 
 ```
@@ -190,7 +190,7 @@ Options:
 <!---<details>
   <summary><b>NovelSelect Options</b></summary>-->
 
-The code efficiently processes your dataset and returns two outputs: the selected text samples and their corresponding indices. Please structure your input text as a list—this can be either raw text content or formatted training data. By default, NovelSelect uses the input dataset as the reference dataset, but you may customize this by specifying a different dataset with precomputed embeddings.
+Please refer to the sections above for data preparation details. The code efficiently processes your dataset and returns two outputs: the selected text samples and their corresponding indices. Please structure your input text as a list—this can be either raw text content or formatted training data. By default, NovelSelect uses the input dataset as the reference dataset, but you may customize this by specifying a different dataset with precomputed embeddings.
 
 ```
 Usage: python novelselect.py [OPTIONS]
