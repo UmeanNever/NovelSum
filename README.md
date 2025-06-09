@@ -176,12 +176,12 @@ Options:
   --multi_datasets_dir TEXT     Directory containing multiple embedding files
   --dense_ref_dir TEXT          Directory with reference dataset for density calculation
   --output_csv TEXT             Path for the output CSV file with results
-  --gpu_id INT                  Specify which GPU to use (default: 0)
-  --density_powers LIST         List of density powers to calculate NovelSum 
-                                (default: [0, 0.25, 0.5])
-  --neighbors INT               Number of nearest neighbors for approximate density calculation
+  --gpu_id INT                  Specify the GPU device to use for Faiss (default: 0)
+  --neighbors LIST              List of the numbers of nearest neighbors used for approximating the density factor
                                 (default: [5, 10])
-  --proximity_powers LIST       List of distance powers for NovelSum calculation 
+  --density_powers LIST         List of power parameters applied to the density factor when computing NovelSum
+                                (default: [0, 0.25, 0.5])
+  --distance_powers LIST        List of power parameters applied to the proximity weight when computing NovelSum
                                 (default: [0, 1, 2])
 ```
 </details>
@@ -209,10 +209,10 @@ Options:
   --figure_dir TEXT        Directory containing embeddings (same order as text)
   --output_dir TEXT        Directory to store selected data and indices
   --k INT                  Target number of samples to select (default: 10000)
-  --gpu_id INT             Specify which GPU to use (default: 0)
-  --density_power FLOAT    Density power parameter for NovelSum (default: 0.5)
-  --neighbors INT          Number of nearest neighbors for density calculation (default: 10)
-  --proximity_power INT    Distance power parameter for NovelSum (default: 1)
+  --gpu_id INT             Specify the GPU device to use for Faiss (default: 0)
+  --neighbors INT          Number of nearest neighbors used for approximating the density factor (default: 10)
+  --density_power FLOAT    Power parameter for the density factor in NovelSelect (default: 0.5)
+  --distance_power FLOAT   Power parameter for the proximity weight in NovelSelect (default: 1.0)
   --seed INT               Random seed for initial point selection (default: 42)
 ```
 </details>
