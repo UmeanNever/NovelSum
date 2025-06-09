@@ -223,16 +223,16 @@ Based on our comprehensive hyperparameter analysis, we recommend the following c
 - `proximity_power`: 1
 - `neighbors`: 10
 
-When adapting our methodology to specialized domains such as code generation or mathematical problems, the above settings serve as a solid starting point. If needed, you can experiment with different hyperparameter combinations, using our practice as a guide, to identify the best configurations tailored to your specific use case.
+When adapting our methodology to specialized domains such as code generation or mathematical problems, the above settings serve as a solid starting point. If needed, you can experiment with different hyperparameter combinations, using the correlation analysis in our paper as a guide, to identify the configuration best suited to your use case.
 
 ## 📝 Citation
 
-If you use NovelSum in your research, please cite our paper:
+If you find our work helpful, please consider citing our paper:
 
 ```bibtex
 @article{yang2025measuring,
   title={Measuring Data Diversity for Instruction Tuning: A Systematic Analysis and A Reliable Metric},
-  author={Yang, Yuming and Nan, Yang and Ye, Junjie and Dou, Shihan and Wang, Xiao and Li, Shuo and Lv, Huijie and Gui, Tao and Zhang, Qi and Huang, Xuanjing},
+  author={Yang, Yuming and Nan, Yang and Ye, Junjie and Dou, Shihan and Wang, Xiao and Li, Shuo and Lv, Huijie and Wu, Mingqi and Gui, Tao and Zhang, Qi and Huang, Xuanjing},
   journal={arXiv preprint arXiv:2502.17184},
   year={2025}
 }
