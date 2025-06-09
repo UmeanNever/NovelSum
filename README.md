@@ -45,9 +45,9 @@ pip install -r requirements.txt
 
 ## 🚀 Quick Start
 
-### Calculate NovelSum for a dataset
+### Compute the NovelSum of a dataset
 
-To compute the NovelSum of a dataset, provide a JSON file (or a directory of JSON files) containing data embeddings, along with a reference dataset directory used for estimating the information density factor:
+To compute the NovelSum diversity of a dataset, provide a JSON file (or a directory of JSON files) containing data embeddings, along with the reference (source) dataset directory used for estimating the information density factor:
 
 ```bash
 python novelsum.py --single_dataset_path input_data.json --dense_ref_dir your_ref_dir --output_csv output.csv
@@ -59,10 +59,10 @@ python novelsum.py --multi_datasets_dir your_dir --dense_ref_dir your_ref_dir --
 
 ### Use NovelSelect for data selection
 
-To apply the NovelSelect strategy, specify text directory, embedding directory, and output directory:
+To apply the NovelSelect strategy, specify the paths to the source dataset’s text and embedding directories, as well as the desired output directory.
 
 ```bash
-python novelselect.py --text_dir your_first_dir --figure_dir your_embedding_dir --output_dir output
+python novelselect.py --text_dir your_text_dir --figure_dir your_embedding_dir --output_dir your_output_dir
 ```
 
 See below Usage Guide for details.
