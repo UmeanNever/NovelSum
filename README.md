@@ -47,7 +47,7 @@ pip install -r requirements.txt
 
 ### Calculate NovelSum for a dataset
 
-To compute the NovelSum of a dataset, provide a JSON file (or a directory of JSON files) containing data embeddings, along with a reference dataset directory used for estimating *density*:
+To compute the NovelSum of a dataset, provide a JSON file (or a directory of JSON files) containing data embeddings, along with a reference dataset directory used for estimating the information density factor:
 
 ```bash
 python novelsum.py --single_dataset_path input_data.json --dense_ref_dir your_ref_dir --output_csv output.csv
