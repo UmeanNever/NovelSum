@@ -135,7 +135,7 @@ The examples below illustrate the expected data formats:
 
 ### Embedding Calculation
 
-You can generate embeddings for your dataset using various models. In our implementation, we use pretrained base models, such as LLaMA-3-8B. For details, see Appendix A.1 in our paper. Thanks to vLLM, we were able to compute embeddings for 400,000 instruction-tuning samples in just two hours using 8×H800 GPUs. 
+You can generate embeddings for your dataset using various models. In our implementation, we use pretrained base LLMs such as LLaMA-3-8B or Qwen-2.5-7B. For details, see Appendix A.1 in our paper. Thanks to vLLM, we were able to compute embeddings for 400,000 instruction-tuning samples in just two hours using 8×H800 GPUs. 
 
 You may refer to the following commands to embed both the target and reference (source) dataset separately. Note that your data should first be converted into plain text format—by joining conversation turns with `\n`—before generating embeddings, as shown in the example above.
 
@@ -149,7 +149,7 @@ Usage: python embedding.py [OPTIONS]
 
 Options:
   --input_dir TEXT       Directory containing text data as JSON files (list of strings)
-  --model_path TEXT      Path to the embedding model. We use pretrained LLMs such as LLaMA-3-8B or Qwen-2.5-7B.
+  --model_path TEXT      Path to the embedding model. We use pretrained base LLMs such as LLaMA-3-8B or Qwen-2.5-7B.
   --gpu_id INT           Specify which GPU to use (default: 0)
   --max_length INT       Maximum sequence length for embedding calculation (default: 256)
   --output_dir TEXT      Directory to store the embedding data (maintains the same file
