@@ -197,7 +197,7 @@ Please refer to the sections above for data preparation details. The code effici
 
 By default, NovelSelect uses the input dataset itself as the reference dataset to estimate the information density factor. However, you may customize our code to specify a different reference dataset with precomputed embeddings.
 
-Moreover, you can integrate NovelSelect with quality-based data selection methods by making a straightforward modification to our code—incorporating sample-wise quality scores as multipliers when selecting the sample with maximum "novelty" $v(x)$ at each iteration, as discussed in Section 6 of our paper.
+Moreover, you can integrate NovelSelect with quality-based data selection methods by making a straightforward modification to our code—incorporating sample-wise quality scores as multipliers when selecting the sample with maximum "novelty" $v(x)$ at each iteration of NovelSelect, as discussed in Section 6 of our paper.
 
 ```
 Usage: python novelselect.py [OPTIONS]
@@ -221,7 +221,7 @@ Options:
 
 ## 🔍 Extensions
 
-In our implementation, we used pretrained base models such as LLaMA-3-8B for sample embedding calculations, primarily for research purposes. For practical applications, you may choose to employ SOTA LLM-based embedding models that have been fine-tuned specifically for embedding tasks to achieve potentially superior performance.
+In our implementation, we use pretrained base LLMs such as LLaMA-3-8B for sample embedding calculations, primarily for research purposes. For practical applications, you may choose to employ SOTA LLM-based embedding models that have been fine-tuned specifically for embedding tasks to achieve potentially superior performance.
 
 Based on our comprehensive hyperparameter analysis, we recommend the following configuration for NovelSum and NovelSelect, which demonstrates generalizable alignment with model performance and facilitates the selection of high-quality datasets:
 - `density_power`: 0.5
