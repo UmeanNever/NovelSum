@@ -193,7 +193,9 @@ Options:
 <!---<details>
   <summary><b>NovelSelect Options</b></summary>-->
 
-Please refer to the sections above for data preparation details. The code efficiently processes your dataset and returns two outputs: the selected text samples and their corresponding indices. Please structure your input text as a list—this can be either raw text content or formatted training data. By default, NovelSelect uses the input dataset as the reference dataset, but you may customize this by specifying a different dataset with precomputed embeddings.
+Please refer to the sections above for data preparation details. The code efficiently processes your input dataset and returns two outputs: the selected text samples and their corresponding indices. Please structure your input text as a list—this can be either raw text content or formatted training data. 
+
+By default, NovelSelect uses the input dataset itself as the reference dataset to estimate the information density factor. However, you may customize our code to specify a different reference dataset with precomputed embeddings.
 
 Moreover, you can integrate NovelSelect with quality-based data selection methods by making a straightforward modification to our code—incorporating sample-wise quality scores as multipliers when selecting the sample with maximum "novelty" $v(x)$ at each iteration, as discussed in Section 6 of our paper.
 
@@ -219,9 +221,9 @@ Options:
 
 ## 🔍 Extensions
 
-In our implementation, we used pretrained base models for sample embedding calculations, primarily for research purposes. For practical applications, you may choose to employ SOTA LLM-based embedding models that have been fine-tuned specifically for embedding tasks to achieve potentially superior performance.
+In our implementation, we used pretrained base models such as LLaMA-3-8B for sample embedding calculations, primarily for research purposes. For practical applications, you may choose to employ SOTA LLM-based embedding models that have been fine-tuned specifically for embedding tasks to achieve potentially superior performance.
 
-Based on our comprehensive hyperparameter analysis, we recommend the following configuration, which demonstrates generalizable alignment with model performance and facilitates the selection of high-quality datasets:
+Based on our comprehensive hyperparameter analysis, we recommend the following configuration for NovelSum and NovelSelect, which demonstrates generalizable alignment with model performance and facilitates the selection of high-quality datasets:
 - `density_power`: 0.5
 - `proximity_power`: 1
 - `neighbors`: 10
