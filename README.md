@@ -17,7 +17,7 @@ In this research, we tackle the fundamental challenge of accurately measuring da
 
 Our codebase supports the following functionalities:
 - **Dataset Diversity Measurement (NovelSum)**:  
-  Measures dataset diversity using our NovelSum metrics, which show a 0.97 correlation with instruction-tuned model performance. While our experiments focus on general instruction-tuning datasets, NovelSum is broadly applicable to textual datasets across various tasks. See Section 3 and 7 of our paper for more information.
+  Measures dataset diversity using our NovelSum metric, which exhibits a 0.97 correlation with instruction-tuned model performance. While our experiments focus on general instruction-tuning datasets, NovelSum is broadly applicable to textual datasets across various tasks. See Section 3 and 7 of our paper for more information.
 - **Data Selection with Optimized Diversity (NovelSelect)**:  
   Selects a diverse subset from a source dataset under a given data budget using our NovelSelect strategy, which outperforms other diversity-oriented data selection strategy. Notably, NovelSelect can seamlessly integrate with quality-based data selection methods. See Section 6 of our paper for more information.
  
@@ -71,7 +71,7 @@ See below Usage Guide for details.
 
 ### Data Preparation
 
-The input to **NovelSum** consists of a target dataset and a source (reference) dataset, which is used to estimate the information density factor. If a reference dataset is not readily available, we suggest using a general large-scale (open-source) dataset that is relevant to your task. For instance, in our instruction-tuning experiments, we use a combined dataset consisting of WizardLM, ShareGPT, and UltraChat (using just one of them is also feasible) as the reference. In practice, the reference dataset can be flexibly chosen based on the task at hand; any domain-specific dataset may be used to compute NovelSum for specialized scenarios.
+The input to **NovelSum** consists of a target dataset, for which diversity is computed, and a reference (source) dataset used to estimate the information density factor. If a reference dataset is not readily available, we suggest using a general large-scale (open-source) dataset that is relevant to your task. For instance, in our instruction-tuning experiments, we use a combined dataset consisting of WizardLM, ShareGPT, and UltraChat (using just one of them is also feasible) as the reference. In practice, the reference dataset can be flexibly chosen based on the task at hand; any domain-specific dataset may be used to compute NovelSum for specialized scenarios.
 
 The input to **NovelSelect** requires only the source dataset (i.e., the dataset from which samples are selected).
 
@@ -135,7 +135,9 @@ The examples below illustrate the expected data formats:
 
 ### Embedding Calculation
 
-You can generate embeddings for your dataset using various models. Thanks to vLLM, we were able to compute embeddings for 400,000 data points in just 2 hours using 8×H800 GPUs. You may refer to the following commands to embed both the target and reference (source) dataset. Note that your data should first be converted into text format—by joining conversation turns with `\n`—before generating embeddings, as shown in the example above.
+You can generate embeddings for your dataset using various models. In our implementation, we use pretrained base models, such as LLaMA-3-8B. For details, see Appendix A.1 in our paper. Thanks to vLLM, we were able to compute embeddings for 400,000 instruction-tuning samples in just two hours using 8×H800 GPUs. 
+
+You may refer to the following commands to embed both the target and reference (source) dataset separately. Note that your data should first be converted into plain text format—by joining conversation turns with `\n`—before generating embeddings, as shown in the example above.
 
 <!---<details>
   <summary><b>Embedding Calculation Options</b></summary>-->
@@ -147,7 +149,7 @@ Usage: python embedding.py [OPTIONS]
 
 Options:
   --input_dir TEXT       Directory containing text data as JSON files (list of strings)
-  --model_path TEXT      Path to the embedding model
+  --model_path TEXT      Path to the embedding model. We use pretrained LLMs such as LLaMA-3-8B or Qwen-2.5-7B.
   --gpu_id INT           Specify which GPU to use (default: 0)
   --max_length INT       Maximum sequence length for embedding calculation (default: 256)
   --output_dir TEXT      Directory to store the embedding data (maintains the same file
@@ -193,6 +195,8 @@ Options:
   <summary><b>NovelSelect Options</b></summary>-->
 
 Please refer to the sections above for data preparation details. The code efficiently processes your dataset and returns two outputs: the selected text samples and their corresponding indices. Please structure your input text as a list—this can be either raw text content or formatted training data. By default, NovelSelect uses the input dataset as the reference dataset, but you may customize this by specifying a different dataset with precomputed embeddings.
+
+Moreover, you can integrate NovelSelect with quality-based data selection methods by making a straightforward modification to our code—incorporating sample-wise quality scores as multipliers when selecting the sample with maximum "novelty" $v(x)$ at each iteration, as discussed in Section 6 of our paper.
 
 ```
 Usage: python novelselect.py [OPTIONS]
