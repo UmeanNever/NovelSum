@@ -71,7 +71,7 @@ See below Usage Guide for details.
 
 ### Data Preparation
 
-The input to **NovelSum** consists of a target dataset, for which diversity is computed, and a reference (source) dataset used to estimate the information density factor. If a reference dataset is not readily available, we suggest using a general large-scale (open-source) dataset that is relevant to your task. For instance, in our instruction-tuning experiments, we use a combined dataset consisting of WizardLM, ShareGPT, and UltraChat (using just one of them is also feasible) as the reference. In practice, the reference dataset can be flexibly chosen based on the task at hand; any domain-specific dataset may be used to compute NovelSum for specialized scenarios.
+The input to **NovelSum** consists of a target dataset, for which diversity is computed, and a source (reference) dataset used to estimate the information density factor. If a reference dataset is not readily available, we suggest using a general large-scale (open-source) dataset that is relevant to your task. For instance, in our instruction-tuning experiments, we use a combined dataset consisting of WizardLM, ShareGPT, and UltraChat (using just one of them is also feasible) as the reference. In practice, the reference dataset can be flexibly chosen based on the task at hand; any domain-specific dataset may be used to compute NovelSum for specialized scenarios.
 
 The input to **NovelSelect** requires only the source dataset (i.e., the dataset from which samples are selected).
 
@@ -137,7 +137,7 @@ The examples below illustrate the expected data formats:
 
 You can generate embeddings for your dataset using various models. In our implementation, we use pretrained base LLMs such as LLaMA-3-8B or Qwen-2.5-7B. For details, see Appendix A.1 in our paper. Thanks to vLLM, we were able to compute embeddings for 400,000 instruction-tuning samples in just two hours using 8×H800 GPUs. 
 
-You may refer to the following commands to embed both the target and reference (source) dataset separately. Note that your data should first be converted into plain text format—by joining conversation turns with `\n`—before generating embeddings, as shown in the example above.
+You may refer to the following commands to embed both the target and source (reference) datasets separately. Note that your data should first be converted into plain text format—by joining conversation turns with `\n`—before generating embeddings, as shown in the example above.
 
 <!---<details>
   <summary><b>Embedding Calculation Options</b></summary>-->
@@ -165,7 +165,6 @@ Options:
   <summary><b>NovelSum Calculation Options</b></summary>-->
 
 `single_dataset_path` (or `multi_datasets_dir`) and `dense_ref_dir` point to the embedding files of your target and source (reference) dataset, respectively. Both should be computed and saved in the same manner as illustrated in the data preparation sections above.
-
 
 ```
 Usage: python novelsum.py [OPTIONS]
