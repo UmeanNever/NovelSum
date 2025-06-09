@@ -77,7 +77,7 @@ The input to **NovelSelect** requires only the source dataset (i.e., the dataset
 
 Both the target dataset and the source dataset use the same conversation-style data format and must be transformed into **sample embeddings** (one embedding vector for each sample in the dataset) before computing NovelSum or running NovelSelect. Due to the computational demands of processing large-scale embeddings, we recommend organizing the dataset as a directory of multiple JSON files, each containing approximately 5,000 samples (~0.5GB per file). In our implementation, text data and embeddings are stored in separate directories, with JSON files named numerically (e.g., `18.json`) for easy indexing and mapping. Each file contains a list of samples, with each entry storing either text or embedding data.
 
-The examples below illustrate the expected data formats.
+The examples below illustrate the expected data formats:
 
 #### Examples
 
