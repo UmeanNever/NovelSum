@@ -74,10 +74,9 @@ python novelselect.py --text_dir your_text_dir --figure_dir your_embedding_dir -
 ```
 ### Example Dataset
 
-We provide our state-of-the-art NovelSum dataset, as presented in our paper, on Hugging Face.
-You can find it here: Sirius518/NovelSum
+We release an example instruction-tuning (IT) dataset containing 10k diverse samples selected using our NovelSelecy strategy from a combined source dataset of 396k samples (as described in the paper). This dataset targets optimized diversity (NovelSum), enabling the fine-tuned LLM to achieve strong performance, as measured by AlpacaEval and MT-Bench. It is available on [Hugging Face](https://huggingface.co/datasets/Sirius518/NovelSum). You may also refer to it for the expected input data format when using our codebase.
 
-See below Usage Guide for details.
+Refer to the Usage Guide below for details on using our code.
 
 ## 📚 Usage Guide
 
