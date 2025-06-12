@@ -72,6 +72,10 @@ To apply the NovelSelect strategy, specify the paths to the source dataset’s t
 ```bash
 python novelselect.py --text_dir your_text_dir --figure_dir your_embedding_dir --output_dir your_output_dir
 ```
+### Example Dataset
+
+We provide our state-of-the-art NovelSum dataset, as presented in our paper, on Hugging Face.
+You can find it here: Sirius518/NovelSum
 
 See below Usage Guide for details.
 
