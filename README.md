@@ -60,7 +60,7 @@ pip install -r requirements.txt
 
 ### Compute the NovelSum of a dataset
 
-To compute the NovelSum diversity of a dataset, provide a JSON file (or a directory of JSON files) containing data embeddings, along with the reference (source) dataset directory used for estimating the information density factor:
+To compute the NovelSum diversity of a dataset, provide a JSON file (or a directory of JSON files) containing data embeddings for the target dataset, along with the directory of the reference (source) dataset used for estimating the information density factor:
 
 ```bash
 python novelsum.py --single_dataset_path input_data.json --dense_ref_dir your_ref_dir --output_csv output.csv
@@ -69,7 +69,7 @@ or
 ```bash
 python novelsum.py --multi_datasets_dir your_dir --dense_ref_dir your_ref_dir --output_csv output.csv
 ```
-We provide a curated dataset of 396K SFT samples on [Hugging Face](https://huggingface.co/datasets/Sirius518/NovelSum) that can be downloaded and used as reference data for density computation
+We provide our preprocessed source dataset of 396K instruction-tuning (IT) samples on [Hugging Face](https://huggingface.co/datasets/Sirius518/NovelSum), which can be downloaded and used as reference dataset for density estimation in general IT tasks. See the dataset section below for details.
 
 ### Use NovelSelect for data selection
 
@@ -85,7 +85,7 @@ Refer to the [Usage Guide](#-usage-guide) below for details on using our code.
 
 We release two datasets to support reproducibility and further research:
 - **A curated 10k instruction-tuning (IT) dataset**, selected using our NovelSelect strategy to maximize diversity based on NovelSum. This subset enables fine-tuned LLMs to achieve strong performance, as evaluated by AlpacaEval and MT-Bench.
-- **A combined source dataset of 396k IT samples**, comprising data from WizardLM, ShareGPT, and UltraChat, which serves as the candidate pool for selection (see paper for details). This dataset has been preprocessed and embedded, making it ready for downstream data engineering procedures such as data selection.
+- **A combined source dataset of 396k IT samples**, comprising data from WizardLM, ShareGPT, and UltraChat, which serves as the candidate pool for selection (see the paper for more details). This dataset has been preprocessed and embedded, making it ready for downstream data engineering procedures such as data selection.
 
 Both datasets are available on [Hugging Face](https://huggingface.co/datasets/Sirius518/NovelSum). You may also refer to them for the expected input data format when using our codebase.
 
