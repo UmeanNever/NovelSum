@@ -15,7 +15,7 @@ In this research, we tackle the fundamental challenge of accurately measuring da
 
 - 📖 **Paper**: [Read our paper on arXiv](https://arxiv.org/abs/2502.17184)
 - 🛠️ **Code**: Available in this repository.
-- 📀 **Data**: We release both the curated instruction tuning datasets selected by NovelSelect and the original source dataset used in our study; see the [Dataset](#-dataset) section below for details.
+- 📀 **Data**: We release both the instruction-tuning dataset curated by NovelSelect and the full source dataset used in our study; see the [Dataset](#-dataset) section below for details.
 
 Our codebase supports the following functionalities:
 - **Dataset Diversity Measurement (NovelSum)**:  
@@ -38,6 +38,7 @@ Our codebase supports the following functionalities:
 
 - [Installation](#-installation)
 - [Quick Start](#-quick-start)
+- [Dataset](#-dataset)
 - [Usage Guide](#-usage-guide)
   * [Data Preparation](#data-preparation)
     + [Examples](#examples)
@@ -82,8 +83,8 @@ Refer to the [Usage Guide](#-usage-guide) below for details on using our code.
 ## 📀 Dataset
 
 We release two datasets to support reproducibility and further research:
-- A curated 10k instruction-tuning (IT) dataset, selected using our NovelSelect strategy to maximize diversity based on NovelSum. This subset enables fine-tuned LLMs to achieve strong performance, as evaluated by AlpacaEval and MT-Bench.
-- A combined source dataset of 396k IT samples, comprising data from WizardLM, ShareGPT, and UltraChat, which serves as the candidate pool for selection (see paper for details). This dataset has been preprocessed and embedded, making it ready for downstream data engineering procedures such as data selection.
+- **A curated 10k instruction-tuning (IT) dataset**, selected using our NovelSelect strategy to maximize diversity based on NovelSum. This subset enables fine-tuned LLMs to achieve strong performance, as evaluated by AlpacaEval and MT-Bench.
+- **A combined source dataset of 396k IT samples**, comprising data from WizardLM, ShareGPT, and UltraChat, which serves as the candidate pool for selection (see paper for details). This dataset has been preprocessed and embedded, making it ready for downstream data engineering procedures such as data selection.
 
 Both datasets are available on [Hugging Face](https://huggingface.co/datasets/Sirius518/NovelSum). You may also refer to them for the expected input data format when using our codebase.
 
@@ -91,7 +92,7 @@ Both datasets are available on [Hugging Face](https://huggingface.co/datasets/Si
 
 ### Data Preparation
 
-The input to **NovelSum** consists of a target dataset, for which diversity is computed, and a source (reference) dataset used to estimate the information density factor. In our instruction-tuning experiments, we use a combined dataset of WizardLM, ShareGPT, and UltraChat as the reference dataset (using just one of them is also feasible). This reference dataset can be reused for general instruction-tuning tasks. If a reference dataset is not readily available for your task, we recommend using a general large-scale (open-source) dataset that is relevant to it. In practice, the reference dataset can be flexibly chosen based on the task at hand; any domain-specific dataset may be used to compute NovelSum for specialized scenarios.
+The input to **NovelSum** consists of a target dataset, for which diversity is computed, and a source (reference) dataset used to estimate the information density factor. In our instruction-tuning experiments, we use a combined dataset of WizardLM, ShareGPT, and UltraChat as the reference dataset (using just one of them is also feasible). This reference dataset can be reused for general instruction-tuning tasks. If a reference dataset is not readily available for your task, we recommend using a general large-scale (open-source) dataset that closely aligns with your task domain. In practice, the reference dataset can be flexibly chosen based on the task at hand; any domain-specific dataset may be used to compute NovelSum for specialized scenarios.
 
 The input to **NovelSelect** requires only the source dataset (i.e., the dataset from which samples are selected).
 
