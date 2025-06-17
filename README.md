@@ -6,6 +6,7 @@
 <p align="center">
  <a href="https://github.com/UmeanNever/NovelSum/blob/main/LICENSE"><img alt="GitHub license" src="https://img.shields.io/github/license/UmeanNever/NovelSum"></a>
  <a href="https://arxiv.org/abs/2502.17184"><img alt="Paper" src="https://img.shields.io/badge/📖-Paper-red"></a>
+ <a href="https://huggingface.co/datasets/Sirius518/NovelSum"><img alt="Data" src="https://img.shields.io/badge/📀-Data-blue"></a>
 </p>
 
 ## 📋 Overview
@@ -13,13 +14,16 @@
 In this research, we tackle the fundamental challenge of accurately measuring dataset diversity for instruction tuning and introduce **NovelSum**, a reliable diversity metric that jointly accounts for inter-sample distances and information density, and shows a strong correlation with model performance. Furthermore, we leverage NovelSum as an optimization objective to develop a greedy diversity-oriented data selection strategy called **NovelSelect** that outperforms existing approaches, validating both the effectiveness and practical significance of our metric.
 
 - 📖 **Paper**: [Read our paper on arXiv](https://arxiv.org/abs/2502.17184)
-- 🛠️ **Code**: All codes and resources are available in this repository.
+- 🛠️ **Code**: Available in this repository.
+- 📀 **Data**: We release both the curated instruction tuning datasets selected by NovelSelect and the original source dataset used in our study; see the [Dataset](#-dataset) section below for details.
 
 Our codebase supports the following functionalities:
 - **Dataset Diversity Measurement (NovelSum)**:  
   Measures dataset diversity using our NovelSum metric, which exhibits a 0.97 correlation with the performance of instruction-tuned models. While our experiments focus on general instruction-tuning datasets, NovelSum is broadly applicable to textual datasets across various tasks. See Section 3 and 7 of our paper for more information.
 - **Data Selection with Optimized Diversity (NovelSelect)**:  
   Selects a diverse subset from a source dataset under a given data budget using our NovelSelect strategy, which outperforms other diversity-oriented data selection strategy. Notably, NovelSelect can seamlessly integrate with quality-based data selection methods. See Section 6 of our paper for more information.
+
+
 
 <p align="center">
   <img src="/assets/Scatter_NovelSum.png" alt="Alt text" width="500"/>
@@ -72,23 +76,28 @@ To apply the NovelSelect strategy, specify the paths to the source dataset’s t
 ```bash
 python novelselect.py --text_dir your_text_dir --figure_dir your_embedding_dir --output_dir your_output_dir
 ```
-### Example Dataset
 
-We release an example instruction-tuning (IT) dataset containing 10k diverse samples selected using our NovelSelecy strategy from a combined source dataset of 396k samples (as described in the paper). This dataset targets optimized diversity (NovelSum), enabling the fine-tuned LLM to achieve strong performance, as measured by AlpacaEval and MT-Bench. It is available on [Hugging Face](https://huggingface.co/datasets/Sirius518/NovelSum). You may also refer to it for the expected input data format when using our codebase.
+Refer to the [Usage Guide](#-usage-guide) below for details on using our code.
 
-Refer to the Usage Guide below for details on using our code.
+## 📀 Dataset
+
+We release two datasets to support reproducibility and further research:
+- A curated 10k instruction-tuning (IT) dataset, selected using our NovelSelect strategy to maximize diversity based on NovelSum. This subset enables fine-tuned LLMs to achieve strong performance, as evaluated by AlpacaEval and MT-Bench.
+- A combined source dataset of 396k IT samples, comprising data from WizardLM, ShareGPT, and UltraChat, which serves as the candidate pool for selection (see paper for details). This dataset has been preprocessed and embedded, making it ready for downstream data engineering procedures such as data selection.
+
+Both datasets are available on [Hugging Face](https://huggingface.co/datasets/Sirius518/NovelSum). You may also refer to them for the expected input data format when using our codebase.
 
 ## 📚 Usage Guide
 
 ### Data Preparation
 
-The input to **NovelSum** consists of a target dataset, for which diversity is computed, and a source (reference) dataset used to estimate the information density factor. If a reference dataset is not readily available, we suggest using a general large-scale (open-source) dataset that is relevant to your task. For instance, in our instruction-tuning experiments, we use a combined dataset consisting of WizardLM, ShareGPT, and UltraChat (using just one of them is also feasible) as the reference. In practice, the reference dataset can be flexibly chosen based on the task at hand; any domain-specific dataset may be used to compute NovelSum for specialized scenarios.
+The input to **NovelSum** consists of a target dataset, for which diversity is computed, and a source (reference) dataset used to estimate the information density factor. In our instruction-tuning experiments, we use a combined dataset of WizardLM, ShareGPT, and UltraChat as the reference dataset (using just one of them is also feasible). This reference dataset can be reused for general instruction-tuning tasks. If a reference dataset is not readily available for your task, we recommend using a general large-scale (open-source) dataset that is relevant to it. In practice, the reference dataset can be flexibly chosen based on the task at hand; any domain-specific dataset may be used to compute NovelSum for specialized scenarios.
 
 The input to **NovelSelect** requires only the source dataset (i.e., the dataset from which samples are selected).
 
 Both the target dataset and the source dataset use the same conversation-style data format and must be transformed into **sample embeddings** (one embedding vector for each sample in the dataset) before computing NovelSum or running NovelSelect. Due to the computational demands of processing large-scale embeddings, we recommend organizing the dataset as a directory of multiple JSON files, each containing approximately 5,000 samples (~0.5GB per file). In our implementation, text data and embeddings are stored in separate directories, with JSON files named numerically (e.g., `18.json`) for easy indexing and mapping. Each file contains a list of samples, with each entry storing either text or embedding data.
 
-The examples below illustrate the expected data formats:
+We provide both the target and source datasets used in our study in the dataset section above. These datasets are already processed in the required format and can serve as references. The examples below further illustrate the expected data formats:
 
 #### Examples
 
