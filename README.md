@@ -95,7 +95,7 @@ Both datasets are available on [Hugging Face](https://huggingface.co/datasets/Si
 
 The input to **NovelSum** consists of a target dataset, for which diversity is computed, and a source (reference) dataset used to estimate the information density factor. In our instruction-tuning experiments, we use a combined dataset of WizardLM, ShareGPT, and UltraChat as the reference dataset (using just one of them is also feasible). This reference dataset can be reused for general instruction-tuning tasks. 
 
-In practice, the reference dataset can be flexibly chosen based on the task at hand; any domain-specific dataset may be used to compute NovelSum for specialized scenarios.
+In practice, the source (reference) dataset for NovelSum can be flexibly chosen based on the task at hand; any domain-specific dataset may be used for specialized scenarios.
  - If you are enhancing data based on an existing dataset, that dataset itself can naturally serve as the reference.
  - If no such dataset is readily available, one may instead choose a medium- to large-scale dataset with a relatively natural distribution relevant to the task domain (e.g., one derived from open-source data), or alternatively use the validation set of the target task—provided that it adequately reflects the desired distribution, though this may limit generalization.
  - Moreover, in cases where one wishes to ignore the effect of information density or when the reference distribution is unknown, the reference dataset can be omitted entirely. In such cases, NovelSum can be computed solely based on inter-sample distances (via the proximity-weighted sum), which still provides valuable insights, as shown in our ablation study.
