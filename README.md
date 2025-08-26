@@ -98,7 +98,7 @@ The input to **NovelSum** consists of a target dataset, for which diversity is c
 In practice, the reference (source) dataset for NovelSum can be flexibly chosen based on the task at hand; any domain-specific dataset may be used for specialized scenarios.
  - If you are enhancing data based on an existing dataset, that dataset itself can naturally serve as the reference.
  - If no such dataset is readily available, one may instead choose a medium- to large-scale dataset with a relatively natural distribution relevant to the task domain (e.g., one derived from open-source data), or alternatively use the validation set of the target task—provided that it adequately reflects the desired distribution, though this may limit generalization.
- - Moreover, in cases where one wishes to ignore the effect of information density or when the reference distribution is unknown, the reference dataset can be omitted entirely. In such cases, NovelSum can be computed solely based on inter-sample distances (via the proximity-weighted sum), which still provides valuable insights, as shown in our ablation study.
+ - Moreover, if one wishes to skip the calculation of information density or if the reference distribution is unknown, the reference dataset can be omitted entirely. In such cases, NovelSum will be computed solely from inter-sample distances (via the proximity-weighted sum), which still provides valuable insights, as shown in our ablation study.
 
 The input to **NovelSelect** requires only the source dataset (i.e., the dataset from which samples are selected).
 
