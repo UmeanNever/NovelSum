@@ -193,7 +193,7 @@ Options:
 
 `single_dataset_path` (or `multi_datasets_dir`) and `dense_ref_dir` point to the embedding files of your target (input) and source (reference) dataset, respectively. Both should be computed and saved in the same manner as illustrated in the data preparation sections above.
 
-If you prefer to omit the reference dataset and skip the information-density–related computation, you can set `dense_ref_dir` to any dataset (e.g., simply reuse the target dataset, or bypass this part in the code) and set `density_powers` to `[0]`. This way, the computed diversity will be based solely on inter-sample distances (via the proximity-weighted sum), which still provides valuable insights.
+If you prefer to omit the reference dataset and skip the information-density computation, you can set `dense_ref_dir` to any dataset (e.g., simply reuse the target dataset or bypass this part in the code) and set `density_powers` to `[0]`. This way, the computed diversity will then rely solely on inter-sample distances (via the proximity-weighted sum), which still provides valuable insights.
 
 ```
 Usage: python novelsum.py [OPTIONS]
