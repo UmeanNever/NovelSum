@@ -264,11 +264,31 @@ When adapting our methodology to specialized domains such as code generation or 
 If you find our work helpful, please consider citing our paper:
 
 ```bibtex
-@article{yang2025measuring,
-  title={Measuring Data Diversity for Instruction Tuning: A Systematic Analysis and A Reliable Metric},
-  author={Yang, Yuming and Nan, Yang and Ye, Junjie and Dou, Shihan and Wang, Xiao and Li, Shuo and Lv, Huijie and Wu, Mingqi and Gui, Tao and Zhang, Qi and Huang, Xuanjing},
-  journal={arXiv preprint arXiv:2502.17184},
-  year={2025}
+@inproceedings{yang-etal-2025-measuring,
+    title = "Measuring Data Diversity for Instruction Tuning: A Systematic Analysis and A Reliable Metric",
+    author = "Yang, Yuming  and
+      Nan, Yang  and
+      Ye, Junjie  and
+      Dou, Shihan  and
+      Wang, Xiao  and
+      Li, Shuo  and
+      Lv, Huijie  and
+      Gui, Tao  and
+      Zhang, Qi  and
+      Huang, Xuanjing",
+    editor = "Che, Wanxiang  and
+      Nabende, Joyce  and
+      Shutova, Ekaterina  and
+      Pilehvar, Mohammad Taher",
+    booktitle = "Proceedings of the 63rd Annual Meeting of the Association for Computational Linguistics (Volume 1: Long Papers)",
+    month = jul,
+    year = "2025",
+    address = "Vienna, Austria",
+    publisher = "Association for Computational Linguistics",
+    url = "https://aclanthology.org/2025.acl-long.908/",
+    doi = "10.18653/v1/2025.acl-long.908",
+    pages = "18530--18549",
+    ISBN = "979-8-89176-251-0"
 }
 ```
 
