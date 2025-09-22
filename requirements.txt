@@ -1,4 +1,4 @@
-faiss==1.9.0
+faiss-gpu-cu12==1.9.0
 numpy==1.26.4
 torch==2.6.0
 tqdm==4.67.1
