@@ -88,6 +88,7 @@ def novelselect(embeddings, k: int, gpu_id: int = 0, neighbors: int = 10,
                     cos_distances_list.append(mean_dist)
                 
                 distances = torch.cat(cos_distances_list, dim=0) # concatenate all batches
+                distances[centers] = -torch.inf # to avoid select a same data
                 max_idx = distances.argmax()
                 centers.append(max_idx.item())
                 selected_embeddings = embeddings_tensor[centers]
