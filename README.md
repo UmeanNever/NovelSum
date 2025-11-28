@@ -111,7 +111,7 @@ We provide both the target and source datasets used in our study in the dataset 
 <details>
   <summary><b>Raw SFT Data Format</b></summary>
 
-```json
+```
 [
  [
   {
@@ -120,13 +120,16 @@ We provide both the target and source datasets used in our study in the dataset 
   },
   {
      "from": "assistant",
-     "value": "..."
+     "value": "<!DOCTYPE html> <html lang="en"> ..."
   },
   {
      "from": "user",
-     "value": "..."
+     "value": "Don't use JavaScript."
   },
-  ...
+  {
+     "from": "assistant",
+     "value": "..."
+  }
  ],
  ...
 ]
@@ -134,11 +137,12 @@ We provide both the target and source datasets used in our study in the dataset 
 </details>
 
 <details>
-  <summary><b>Corresponding Text Data Format (used for embedding)</b></summary>
+  <summary><b>Corresponding Plain Text Format (used for embedding)</b></summary>
 
-```json
+```
 [
- "Create a detailed and exhaustive HTML guide to assist potential buyers in making a well-informed decision when purchasing a laptop.\n ...\n ...",
+ "Create a detailed and exhaustive HTML guide to assist potential buyers in making a well-informed decision when purchasing a laptop." + "\n" +"<!DOCTYPE html> <html lang="en"> ..." + "\n" + "Don't use JavaScript." + "\n" + "...", # multi-turn
+ "Write a short story about Japanese folklore while also incorporating the idea of reincarnation. Your story should include elements from at least two different Japanese myths or legends." + "\n" + "Once upon a time, there was ...", # single-turn
  ...
 ]
 ```
@@ -147,7 +151,7 @@ We provide both the target and source datasets used in our study in the dataset 
 <details>
   <summary><b>Corresponding Embedding Format</b></summary>
 
-```json
+```
 [
  [
     -0.06069426238536835,
@@ -164,7 +168,7 @@ We provide both the target and source datasets used in our study in the dataset 
 
 You can generate embeddings for your dataset using various models. In our implementation, we use pretrained base LLMs such as LLaMA-3-8B or Qwen-2.5-7B. For details, see Appendix A.1 in our paper. Thanks to vLLM, we were able to compute embeddings for 400,000 instruction-tuning samples in just two hours using 8×H800 GPUs. 
 
-You may refer to the following commands to embed both the target and source (reference) datasets separately. Note that your data should first be converted into plain text format—by joining conversation turns with `\n`—before generating embeddings, as shown in the example above.
+You may refer to the following commands to embed both the target and source (reference) datasets separately. Note that your data should first be converted into plain text format—by joining conversation parts with `\n`—before generating embeddings, as shown in the plain text example above.
 
 <!---<details>
   <summary><b>Embedding Calculation Options</b></summary>-->
@@ -246,7 +250,10 @@ Options:
 ```
 </details>
 
-*For more information and a detailed introduction to NovelSum and NovelSelect, please refer to our paper.*
+*For more information and a detailed introduction to NovelSum and NovelSelect, please refer to our paper.*  
+
+*Regarding the code for fine-tuning LLMs, in general, using popular fine-tuning frameworks such as llama-factory can work well, and the practical differences are typically small. Our own fine-tuning code is adapted from [FastChat](https://github.com/lm-sys/FastChat/tree/main). If you're interested, you can refer to Issue [#8](https://github.com/UmeanNever/NovelSum/issues/8), which includes a concise version of our full code.*
+
 
 ## 🔍 Extensions
 
@@ -300,4 +307,3 @@ We build upon the following excellent open-source frameworks:
   
 - **[Faiss](https://github.com/facebookresearch/faiss)**: Library for efficient similarity search and clustering of dense vectors
 
-<!-- <a href="https://www.flaticon.com/free-icons/respect" title="respect icons">Respect icons created by Freepik - Flaticon</a> -->
