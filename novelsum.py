@@ -30,13 +30,20 @@ def compute_cos_distance(data: np.ndarray, device: torch.device) -> np.ndarray:
     return cosine_distance
 
 def weighted_average(row: np.ndarray, power: float = 1.0) -> float:
+    row = row[np.isfinite(row)]  # Exclude infinite and nan values
     sorted_indices = np.argsort(row)
     weights = 1 / np.power(np.arange(1, len(row) + 1), power)
     sorted_row = row[sorted_indices]
     return np.average(sorted_row, weights=weights)
 
 def novelsum(distance_matrix: np.ndarray, densities: np.ndarray, power: float = 1.0) -> float:
-    weighted_matrix = distance_matrix * densities[:, np.newaxis]
+    dm = distance_matrix.copy()
+    # Notes on self-distance in the distance matrix:
+    # The original implementation includes the self-distance, while a natural alternative is to exclude it. 
+    # This choice only affects the starting point of the proximity weights: including the self-distance assigns a weight of 1/2 to the nearest distinct point, whereas excluding it assigns a weight of 1. 
+    # The former has been empirically validated in the paper. We expect the latter to be equally effective and more consistent with common intuition; therefore, it is adopted as the default now. 
+    np.fill_diagonal(dm, np.inf)   # Exclude self-distance. Comment out this line to restore original behavior.
+    weighted_matrix = dm * densities[:, np.newaxis]
     weighted_averages = np.apply_along_axis(weighted_average, 1, weighted_matrix, power=power)
     return np.mean(weighted_averages)
 
