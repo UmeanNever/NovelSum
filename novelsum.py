@@ -36,7 +36,9 @@ def weighted_average(row: np.ndarray, power: float = 1.0) -> float:
     return np.average(sorted_row, weights=weights)
 
 def novelsum(distance_matrix: np.ndarray, densities: np.ndarray, power: float = 1.0) -> float:
-    weighted_matrix = distance_matrix * densities[:, np.newaxis]
+    dm = distance_matrix.copy()
+    np.fill_diagonal(dm, np.inf)   # exclude self-distance
+    weighted_matrix = dm * densities[:, np.newaxis]
     weighted_averages = np.apply_along_axis(weighted_average, 1, weighted_matrix, power=power)
     return np.mean(weighted_averages)
 
