@@ -38,11 +38,16 @@ def weighted_average(row: np.ndarray, power: float = 1.0) -> float:
 
 def novelsum(distance_matrix: np.ndarray, densities: np.ndarray, power: float = 1.0) -> float:
     dm = distance_matrix.copy()
+    
     # Notes on self-distance in the distance matrix:
     # The original implementation includes the self-distance, while a natural alternative is to exclude it. 
     # This choice only affects the starting point of the proximity weights: including the self-distance assigns a weight of 1/2 to the nearest distinct point, whereas excluding it assigns a weight of 1. 
-    # The former has been empirically validated in the paper. We expect the latter to be equally effective and more consistent with common intuition; therefore, it is adopted as the default now. 
-    np.fill_diagonal(dm, np.inf)   # Exclude self-distance. Comment out this line to restore original behavior.
+    # The former approach has been empirically validated in the paper and is adopted as the default implementation for ease of replication. 
+    # We expect the latter approach to be equally effective and potentially more intuitive.
+    # To switch between the two behaviors, simply comment or uncomment the following line:
+
+    # np.fill_diagonal(dm, np.inf)   # Exclude self-distance. Uncomment this line to apply.
+
     weighted_matrix = dm * densities[:, np.newaxis]
     weighted_averages = np.apply_along_axis(weighted_average, 1, weighted_matrix, power=power)
     return np.mean(weighted_averages)
