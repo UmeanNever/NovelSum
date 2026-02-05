@@ -45,8 +45,6 @@ Our codebase supports the following functionalities:
 
 ## 📑 Table of Contents
 
-- [� Overview](#-overview)
-- [📑 Table of Contents](#-table-of-contents)
 - [🔧 Installation](#-installation)
 - [🚀 Quick Start](#-quick-start)
   - [Compute the NovelSum of a dataset](#compute-the-novelsum-of-a-dataset)
