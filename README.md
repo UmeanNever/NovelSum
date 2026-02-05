@@ -1,13 +1,21 @@
 <p align="center">
 <!--  <img src="diversity.png" style="height: 80px;"> -->
  <h2 align="center"> NovelSum & NovelSelect </h2>
- <p align="center"> From the paper <em>"Measuring Data Diversity for Instruction Tuning: <br> A Systematic Analysis and A Reliable Metric"</em> </p>
+ <p align="center"> From the paper <strong>"Measuring Data Diversity for Instruction Tuning: <br> A Systematic Analysis and A Reliable Metric"</strong> </p>
 </p>
 
 <p align="center">
  <a href="https://github.com/UmeanNever/NovelSum/blob/main/LICENSE"><img alt="GitHub license" src="https://img.shields.io/github/license/UmeanNever/NovelSum"></a>
  <a href="https://arxiv.org/abs/2502.17184"><img alt="Paper" src="https://img.shields.io/badge/📖-Paper-red"></a>
  <a href="https://huggingface.co/datasets/Sirius518/NovelSum"><img alt="Data" src="https://img.shields.io/badge/📀-Data-blue"></a>
+</p>
+
+<p align="center">
+  <img src="/assets/novelsum.png" alt="NovelSum" width="450"/>
+  <br>
+  <em>
+    NovelSum computes each sample’s novelty as a proximity-weighted sum of its density-aware distances to other samples, where closer points have greater influence and high-density regions produce larger distances.
+  </em>
 </p>
 
 ## 📋 Overview
@@ -27,27 +35,32 @@ Our codebase supports the following functionalities:
   Selects a diverse subset from a source dataset under a given data budget using our NovelSelect strategy, which outperforms other diversity-oriented data selection strategy. Notably, NovelSelect can seamlessly integrate with quality-based data selection methods. See Section 6 of our paper for more information.
 
 <p align="center">
-  <img src="/assets/Scatter_NovelSum.png" alt="Alt text" width="500"/>
+  <img src="/assets/Scatter_NovelSum.png" alt="Scatter plot" width="500"/>
   <br>
   <em>
-    Figure 1: Our diversity metric, NovelSum, exhibits strong correlation with model performance across IT datasets. <br> 
+    Figure: Our diversity metric, NovelSum, exhibits strong correlation with model performance across IT datasets. <br> 
     Moreover, our NovelSum-based data selection strategy, NovelSelect, achieves superior instruction-tuning performance.
   </em>
 </p>
 
 ## 📑 Table of Contents
 
-- [Installation](#-installation)
-- [Quick Start](#-quick-start)
-- [Dataset](#-dataset)
-- [Usage Guide](#-usage-guide)
-  * [Data Preparation](#data-preparation)
-    + [Examples](#examples)
-  * [Embedding Calculation](#embedding-calculation)
-  * [NovelSum Metric (Diversity Measurement)](#novelsum-metric-diversity-measurement)
-  * [NovelSelect Strategy (Data Selection)](#novelselect-strategy-data-selection)
-- [Extensions](#-extensions)
-- [Citation](#-citation)
+- [� Overview](#-overview)
+- [📑 Table of Contents](#-table-of-contents)
+- [🔧 Installation](#-installation)
+- [🚀 Quick Start](#-quick-start)
+  - [Compute the NovelSum of a dataset](#compute-the-novelsum-of-a-dataset)
+  - [Use NovelSelect for data selection](#use-novelselect-for-data-selection)
+- [📀 Dataset](#-dataset)
+- [📚 Usage Guide](#-usage-guide)
+  - [Data Preparation](#data-preparation)
+    - [Examples](#examples)
+  - [Embedding Calculation](#embedding-calculation)
+  - [NovelSum Metric (Diversity Measurement)](#novelsum-metric-diversity-measurement)
+  - [NovelSelect Strategy (Data Selection)](#novelselect-strategy-data-selection)
+- [🔍 Extensions](#-extensions)
+- [📝 Citation](#-citation)
+- [Acknowledgements](#acknowledgements)
 
 ## 🔧 Installation
 
