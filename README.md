@@ -1,6 +1,7 @@
 <p align="center">
 <!--  <img src="diversity.png" style="height: 80px;"> -->
- <h2 align="center">Measuring Data Diversity for Instruction Tuning: <br> A Systematic Analysis and A Reliable Metric </h2>
+ <h2 align="center"> NovelSum & NovelSelect </h2>
+ <p align="center"> From the paper <em>"Measuring Data Diversity for Instruction Tuning: <br> A Systematic Analysis and A Reliable Metric"</em> </p>
 </p>
 
 <p align="center">
@@ -11,9 +12,11 @@
 
 ## 📋 Overview
 
-In this research, we tackle the fundamental challenge of accurately measuring dataset diversity for instruction tuning and introduce **NovelSum**, a reliable diversity metric that jointly accounts for inter-sample distances and information density, and shows a strong correlation with model performance. Furthermore, we leverage NovelSum as an optimization objective to develop a greedy diversity-oriented data selection strategy called **NovelSelect** that outperforms existing approaches, validating both the effectiveness and practical significance of our metric.
+In this research, we tackle the fundamental challenge of accurately measuring dataset diversity for instruction tuning and introduce **NovelSum**, a reliable **diversity metric** that jointly accounts for inter-sample distances and information density, and shows a strong correlation with model performance.
 
-- 📖 **Paper**: [Read our paper on arXiv](https://arxiv.org/pdf/2502.17184)
+Furthermore, we leverage NovelSum as an optimization objective to develop a greedy **diversity-oriented data selection strategy** called **NovelSelect** that outperforms existing approaches, validating both the effectiveness and practical significance of our metric.
+
+- 📖 **Paper**: [Read our paper on arXiv](https://arxiv.org/pdf/2502.17184). Accepted to ACL 2025 (main conference).
 - 🛠️ **Code**: Available in this repository.
 - 📀 **Data**: We release both the instruction-tuning dataset curated by NovelSelect and the full source dataset used in our study; see the [Dataset](#-dataset) section below for details.
 
@@ -22,8 +25,6 @@ Our codebase supports the following functionalities:
   Measures dataset diversity using our NovelSum metric, which exhibits a 0.97 correlation with the performance of instruction-tuned models. While our experiments focus on general instruction-tuning datasets, NovelSum is broadly applicable to textual datasets across various tasks. See Section 3 and 7 of our paper for more information.
 - **Data Selection with Optimized Diversity (NovelSelect)**:  
   Selects a diverse subset from a source dataset under a given data budget using our NovelSelect strategy, which outperforms other diversity-oriented data selection strategy. Notably, NovelSelect can seamlessly integrate with quality-based data selection methods. See Section 6 of our paper for more information.
-
-
 
 <p align="center">
   <img src="/assets/Scatter_NovelSum.png" alt="Alt text" width="500"/>
