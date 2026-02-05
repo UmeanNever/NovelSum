@@ -24,7 +24,7 @@ In this research, we tackle the fundamental challenge of accurately measuring da
 
 Furthermore, we leverage NovelSum as an optimization objective to develop a greedy **diversity-oriented data selection strategy** called **NovelSelect** that outperforms existing approaches, validating both the effectiveness and practical significance of our metric.
 
-- 📖 **Paper**: [Read our paper on arXiv](https://arxiv.org/pdf/2502.17184). Accepted to **ACL 2025** (main conference).
+- 📖 **Paper**: [Read our paper on arXiv](https://arxiv.org/pdf/2502.17184). Accepted to **ACL 2025** (Main Conference). 🎉
 - 🛠️ **Code**: Available in this repository.
 - 📀 **Data**: We release both the instruction-tuning dataset curated by NovelSelect and the full source dataset used in our study; see the [Dataset](#-dataset) section below for details.
 
