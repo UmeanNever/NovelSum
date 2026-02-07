@@ -14,7 +14,7 @@
   <img src="/assets/novelsum.png" alt="NovelSum" width="450"/>
   <br>
   <em>
-    NovelSum computes each sample’s novelty as a proximity-weighted sum of its density-aware distances to other samples, where closer points have greater influence and high-density regions produce larger distances.
+    The diversity metric, NovelSum, computes each sample’s novelty as a proximity-weighted sum of its density-aware distances to other samples, where closer points have greater influence and high-density regions produce larger distances. The overall dataset diversity is then obtained by summing the novelty scores of all samples.
   </em>
 </p>
 
