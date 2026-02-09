@@ -75,8 +75,8 @@ pip install -r requirements.txt
 ### Compute the NovelSum of a dataset
 
 To compute the NovelSum diversity of a dataset, you need to provide:
-- A JSON file (or a directory of JSON files) containing data embeddings for the target dataset to be measured.
-- (Optional) A directory containing data embeddings for the reference (source) dataset, which is used to estimate the information density factor.
+- A JSON file (or a directory of JSON files) containing data embeddings for the **target dataset** to be measured.
+- (**Optional**) A directory containing data embeddings for the **reference (source) dataset**, which is used to estimate the information density factor.
   - The reference dataset is optional and can be flexibly chosen based on the use case; see the [Data Preparation](#data-preparation) section of the usage guide below for practical suggestions.
   - We provide our preprocessed source dataset of 396K instruction-tuning samples on Hugging Face, which can be downloaded and used as reference dataset for general IT tasks. See the dataset section below for details.
 
@@ -185,7 +185,7 @@ We provide both the target and source datasets used in our study in the dataset 
 
 ### Embedding Calculation
 
-You can generate embeddings for your dataset using various models. In our implementation, we use pretrained base LLMs such as LLaMA-3-8B or Qwen-2.5-7B. For details, see Appendix A.1 in our paper. Thanks to vLLM, we were able to compute embeddings for 400,000 instruction-tuning samples in just two hours using 8×H800 GPUs. 
+You can generate embeddings for your dataset using various models. In our implementation, we use pretrained base (i.e., non–instruction-tuned) LLMs such as LLaMA-3-8B or Qwen-2.5-7B. For further details, see Appendix A.1 of our paper. Thanks to vLLM, we were able to compute embeddings for approximately 400,000 instruction-tuning samples in just two hours using 8×H800 GPUs. 
 
 You may refer to the following commands to embed both the target and source (reference) datasets separately. Note that your data should first be converted into plain text format—by joining conversation parts with `\n`—before generating embeddings, as shown in the plain text example above.
 
@@ -269,14 +269,14 @@ Options:
 ```
 </details>
 
-*For more information and a detailed introduction to NovelSum and NovelSelect, please refer to our paper.*  
+*For more details on the implementation and methodology of NovelSum and NovelSelect, please refer to our paper.*  
 
 *Regarding the code for fine-tuning LLMs, in general, using popular fine-tuning frameworks such as llama-factory can work well, and the practical differences are typically small. Our own fine-tuning code is adapted from [FastChat](https://github.com/lm-sys/FastChat/tree/main). If you're interested, you can refer to Issue [#8](https://github.com/UmeanNever/NovelSum/issues/8), which includes a concise version of our full code.*
 
 
 ## 🔍 Extensions
 
-In our implementation, we use pretrained base LLMs such as LLaMA-3-8B for sample embedding calculations, primarily for research purposes. For practical applications, you may choose to employ SOTA LLM-based embedding models that have been fine-tuned specifically for embedding tasks to achieve potentially superior performance.
+In our implementation, we use pretrained base (i.e., non–instruction-tuned) LLMs such as LLaMA-3-8B for sample embedding calculations, primarily for research purposes. For practical applications, you may choose to employ SOTA LLM-based embedding models that have been fine-tuned specifically for embedding tasks to achieve potentially superior performance.
 
 Based on our comprehensive hyperparameter analysis, we recommend the following configuration for NovelSum and NovelSelect, which demonstrates generalizable alignment with model performance and facilitates the selection of high-quality datasets:
 - `density_power`: 0.5
