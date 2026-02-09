@@ -245,7 +245,7 @@ Options:
 <!---<details>
   <summary><b>NovelSelect Options</b></summary>-->
 
-Please refer to the sections above for data preprocessing details. The code efficiently applies NovelSelect to your input dataset and produces two outputs: the selected text samples and their corresponding indices. The input text should be provided as a list—this can be either raw text content or formatted training data. The selected samples will follow the same format as the input text.
+Please refer to the sections above for data preprocessing details. The code efficiently applies NovelSelect to your input dataset and produces two outputs: the selected text samples and their corresponding indices. The input text samples should be provided as a list, where each element can be either raw text content or formatted training data. The selected samples will follow the same format as the input text samples.
 
 By default, NovelSelect uses the input dataset itself as the reference dataset to estimate the information density factor. However, you may customize our code to specify a different reference dataset with precomputed embeddings.
 
