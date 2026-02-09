@@ -214,7 +214,7 @@ Options:
 <!---<details>
   <summary><b>NovelSum Calculation Options</b></summary>-->
 
-`single_dataset_path` (or `multi_datasets_dir`) and `dense_ref_dir` point to the embedding files of your target (input) and source (reference) dataset, respectively. The source dataset is optional and can be flexibly chosen based on the use case. Both datasets should be computed and saved in the same manner. Please refer to the Data Preparation section above for detailed guidance.
+`single_dataset_path` (or `multi_datasets_dir`) and `dense_ref_dir` point to the embedding files of your target (input) and source (reference) dataset, respectively. The source dataset is optional and can be flexibly chosen based on the use case. Both datasets should be embedded and saved in the same manner. Please refer to the Data Preparation and Embedding Calculation sections above for detailed guidance.
 
 If you prefer to omit the reference dataset and skip the information-density computation, you can set `dense_ref_dir` to any dataset (e.g., simply reuse the target dataset or bypass this part in the code) and set `density_powers` to `[0]`. This way, the computed diversity will then rely solely on inter-sample distances (via the proximity-weighted sum), which still provides valuable insights.
 
@@ -245,7 +245,7 @@ Options:
 <!---<details>
   <summary><b>NovelSelect Options</b></summary>-->
 
-Please refer to the sections above for data preparation details. The code efficiently processes your input dataset and returns two outputs: the selected text samples and their corresponding indices. Please structure your input text as a list—this can be either raw text content or formatted training data. 
+Please refer to the sections above for data preprocessing details. The code efficiently processes your input dataset and returns two outputs: the selected text samples and their corresponding indices. Please structure your input text as a list—this can be either raw text content or formatted training data. 
 
 By default, NovelSelect uses the input dataset itself as the reference dataset to estimate the information density factor. However, you may customize our code to specify a different reference dataset with precomputed embeddings.
 
