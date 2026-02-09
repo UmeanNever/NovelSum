@@ -26,15 +26,15 @@ Furthermore, we leverage NovelSum as an optimization objective to develop a gree
 
 - 📖 **Paper**: [Measuring Data Diversity for Instruction Tuning: A Systematic Analysis and A Reliable Metric](https://arxiv.org/abs/2502.17184) . Accepted to **ACL 2025** (Main Conference). 🎉
 - 🛠️ **Code**: Available in this repository.
-- 📀 **Data**: We release both the instruction-tuning dataset curated by NovelSelect and the full source dataset used in our study; see the [Dataset](#-dataset) section below for details.
+- 📀 **Data**: We release both the instruction-tuning dataset curated by NovelSelect and the full source dataset of 396K samples used in our study; see the [Dataset](#-dataset) section below for details.
 
 **Our codebase supports the following functionalities:**
 - **Dataset Diversity Measurement (NovelSum)**:  
-  Measures dataset diversity using our NovelSum metric, which exhibits a 0.97 correlation with the performance of instruction-tuned models. While our experiments focus on general instruction-tuning datasets, NovelSum is broadly applicable to textual datasets across various tasks. See Section 3 and 7 of our paper for more information.
+  Measures dataset diversity using our NovelSum metric, which exhibits a 0.97 correlation with the performance of instruction-tuned models. While our experiments focus on general instruction-tuning datasets, NovelSum is broadly applicable to textual datasets across various tasks. See Section 3 and 7 of our paper for more information. To quickly get started, follow the instructions [below](#compute-the-novelsum-of-a-dataset).
 - **Data Selection with Optimized Diversity (NovelSelect)**:  
-  Selects a diverse subset from a source dataset under a given data budget using our NovelSelect strategy, which outperforms other diversity-oriented data selection strategy. Notably, NovelSelect can seamlessly integrate with quality-based data selection methods. See Section 6 of our paper for more information.
+  Selects a diverse subset from a source dataset under a given data budget using our NovelSelect strategy, which outperforms other diversity-oriented data selection strategies. Notably, NovelSelect can seamlessly integrate with quality-based data selection methods. See Section 6 of our paper for more details. To quickly get started, follow the instructions [below](#use-novelselect-for-data-selection).
 
-For more information and a detailed introduction to NovelSum and NovelSelect, please refer to our paper.
+For a detailed introduction to NovelSum and NovelSelect, please refer to our paper.
 
 <p align="center">
   <img src="/assets/Scatter_NovelSum.png" alt="Scatter plot" width="500"/>
@@ -72,11 +72,13 @@ pip install -r requirements.txt
 
 ## 🚀 Quick Start
 
-*Below is a quick usage guide. For detailed instructions, please refer to the [Usage Guide](#-usage-guide)*
-
 ### Compute the NovelSum of a dataset
 
-To compute the NovelSum diversity of a dataset, provide a JSON file (or a directory of JSON files) containing data embeddings for the target dataset, along with the directory of the reference (source) dataset used for estimating the information density factor (optional, see usage guide):
+To compute the NovelSum diversity of a dataset, you need to provide:
+- A JSON file (or a directory of JSON files) containing data embeddings for the target dataset to be measured.
+- (Optional) A directory containing data embeddings for the reference (source) dataset, which is used to estimate the information density factor.
+  - The reference dataset is optional and can be flexibly chosen based on the use case; see the [Data Preparation](#data-preparation) section of the usage guide below for practical suggestions.
+  - We provide our preprocessed source dataset of 396K instruction-tuning samples on Hugging Face, which can be downloaded and used as reference dataset for general IT tasks. See the dataset section below for details.
 
 ```bash
 python novelsum.py --single_dataset_path input_data.json --dense_ref_dir your_ref_dir --output_csv output.csv
@@ -85,7 +87,7 @@ or
 ```bash
 python novelsum.py --multi_datasets_dir your_dir --dense_ref_dir your_ref_dir --output_csv output.csv
 ```
-We provide our preprocessed source dataset of 396K instruction-tuning (IT) samples on [Hugging Face](https://huggingface.co/datasets/Sirius518/NovelSum), which can be downloaded and used as reference dataset for density estimation in general IT tasks. See the dataset section below for details.
+Detailed instructions are provided in the Usage Guide below.
 
 ### Use NovelSelect for data selection
 
@@ -94,6 +96,7 @@ To apply the NovelSelect strategy, specify the paths to the source dataset’s t
 ```bash
 python novelselect.py --text_dir your_text_dir --figure_dir your_embedding_dir --output_dir your_output_dir
 ```
+Detailed instructions are provided in the Usage Guide below.
 
 ## 📀 Dataset
 
@@ -107,12 +110,14 @@ Both datasets are available on [Hugging Face](https://huggingface.co/datasets/Si
 
 ### Data Preparation
 
-The input to **NovelSum** consists of a target dataset, for which diversity is computed, and a reference (source) dataset used to estimate the information density factor. In our instruction-tuning experiments, we use a combined dataset of WizardLM, ShareGPT, and UltraChat as the reference dataset (using just one of them is also feasible). This reference dataset can be reused for general instruction-tuning tasks. 
+The input to **NovelSum** consists of a target dataset, for which diversity is computed, and a reference (source) dataset used to estimate the information density factor. In our instruction-tuning experiments, we use a combined dataset of WizardLM, ShareGPT, and UltraChat as the reference dataset (using just one of them is also feasible).
 
-In practice, the reference (source) dataset for NovelSum can be flexibly chosen based on the task at hand; any domain-specific dataset may be used for specialized scenarios.
- - If you are enhancing data based on an existing dataset, that dataset itself can naturally serve as the reference.
+In practice, **the reference (source) dataset for NovelSum can be flexibly chosen** based on your use case; any domain-specific dataset may be used for specialized scenarios.
+ - For general instruction-tuning tasks, the reference dataset released in our work (described above) can be directly reused.
+ - If you are assessing or enhancing the target dataset relative to an existing dataset that represents a desired sample distribution, the latter dataset can naturally serve as the reference.
+   - The target dataset itself may also be used as the reference. However, this treats the target dataset’s current sample distribution as the underlying information distribution, causing existing outliers to be regarded as uninformative samples rather than unique ones. As this may deviate from the "diversity" one aims to measure, we generally recommend directly skipping the computation of information density (discussed below) instead when no reference distribution is to be considered.
  - If no such dataset is readily available, one may instead choose a medium- to large-scale dataset with a relatively natural distribution relevant to the task domain (e.g., one derived from open-source data), or alternatively use the validation set of the target task—provided that it adequately reflects the desired distribution, though this may limit generalization.
- - Moreover, if one wishes to skip the calculation of information density or if the reference distribution is unknown, the reference dataset can be omitted entirely. In such cases, NovelSum will be computed solely from inter-sample distances (via the proximity-weighted sum), which still provides valuable insights, as shown in our ablation study.
+ - Moreover, if one wishes to skip the computation of information density or if the reference distribution is unknown, the reference dataset can be omitted entirely (see guidance below). In such cases, NovelSum will be computed solely from inter-sample distances (via the proximity-weighted sum), which still provides valuable insights, as shown in our ablation study.
 
 The input to **NovelSelect** requires only the source dataset (i.e., the dataset from which samples are selected).
 
@@ -209,7 +214,7 @@ Options:
 <!---<details>
   <summary><b>NovelSum Calculation Options</b></summary>-->
 
-`single_dataset_path` (or `multi_datasets_dir`) and `dense_ref_dir` point to the embedding files of your target (input) and source (reference) dataset, respectively. Both should be computed and saved in the same manner as illustrated in the data preparation sections above.
+`single_dataset_path` (or `multi_datasets_dir`) and `dense_ref_dir` point to the embedding files of your target (input) and source (reference) dataset, respectively. The source dataset is optional and can be flexibly chosen based on the use case. Both datasets should be computed and saved in the same manner. Please refer to the Data Preparation section above for detailed guidance.
 
 If you prefer to omit the reference dataset and skip the information-density computation, you can set `dense_ref_dir` to any dataset (e.g., simply reuse the target dataset or bypass this part in the code) and set `density_powers` to `[0]`. This way, the computed diversity will then rely solely on inter-sample distances (via the proximity-weighted sum), which still provides valuable insights.
 
