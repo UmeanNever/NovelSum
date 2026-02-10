@@ -185,7 +185,7 @@ We provide both the target and source datasets used in our study in the dataset 
 
 ### Embedding Calculation
 
-You can generate embeddings for your dataset using various models. In our implementation, we use pretrained base (i.e., non–instruction-tuned) LLMs such as LLaMA-3-8B or Qwen-2.5-7B. For further details, see Appendix A.1 of our paper. Thanks to vLLM, we were able to compute embeddings for approximately 400,000 instruction-tuning samples in just two hours using 8×H800 GPUs. 
+You can generate embeddings for your dataset using various models. In our implementation, we use pretrained base (i.e., non–instruction-tuned) LLMs such as LLaMA-3-8B or Qwen-2.5-7B. For further details, see Appendix A.1 of our paper.
 
 You may refer to the following commands to embed both the target and source (reference) datasets separately. Note that your data should first be converted into plain text format—by joining conversation parts with `\n`—before generating embeddings, as shown in the plain text example above.
 
@@ -205,8 +205,9 @@ Options:
   --output_dir TEXT      Directory to store the embedding data (maintains the same file
                          structure as the input directory)
 ```
-</details>
+<!---</details>-->
 
+Thanks to vLLM, we were able to compute embeddings for nearly 400,000 instruction-tuning samples in about two hours using 8×H800 GPUs. 
 > **Note**: We truncate all sequences to 256 tokens to mitigate the influence of length variations on embedding distributions, as detailed in our paper.
 
 ### NovelSum Metric (Diversity Measurement)
@@ -214,7 +215,7 @@ Options:
 <!---<details>
   <summary><b>NovelSum Calculation Options</b></summary>-->
 
-`single_dataset_path` (or `multi_datasets_dir`) and `dense_ref_dir` point to the embedding files of your target (input) and source (reference) dataset, respectively. The source dataset is optional and can be flexibly chosen based on the use case. Both datasets should be embedded and saved in the same manner. Please refer to the Data Preparation and Embedding Calculation sections above for detailed guidance.
+`single_dataset_path` (or `multi_datasets_dir`) and `dense_ref_dir` point to the embedding files of your target (input) and source (reference) dataset, respectively. The source dataset is optional and can be flexibly chosen based on the use case. Both datasets should be embedded and saved in the same manner. Please refer to the Data Preparation and Embedding Calculation sections above for detailed guidance. 
 
 If you prefer to omit the reference dataset and skip the information-density computation, you can set `density_powers` to `[0]` and either point `dense_ref_dir` to any dataset (it will have no effect anyway; you can simply reuse the target dataset) or manually bypass the relevant code. This way, the computed diversity will then rely solely on inter-sample distances (via the proximity-weighted sum), which still provides valuable insights, as shown in our ablation study.
 
@@ -236,8 +237,9 @@ Options:
   --distance_powers LIST        List of power parameters applied to the proximity weight when computing NovelSum
                                 (default: [0, 1, 2])
 ```
-</details>
+<!---</details>-->
 
+In our experiments, computing NovelSum on 10k samples with a reference dataset of 396k samples takes about one minute on a single H800 GPU.
 > **Note**: Our code utilizes Faiss-GPU for accelerated density computation. If you don't have GPU resources available, you can modify the code to use Faiss-CPU instead.
 
 ### NovelSelect Strategy (Data Selection)
@@ -267,7 +269,9 @@ Options:
   --distance_power FLOAT   Power parameter for the proximity weight in NovelSelect (default: 1.0)
   --seed INT               Random seed for initial point selection (default: 42)
 ```
-</details>
+<!---</details>-->
+
+In our experiments, selecting 10k samples from a 396k-sample pool using NovelSelect takes about one hour on a single H800 GPU.
 
 *For more details on the implementation and methodology of NovelSum and NovelSelect, please refer to our paper.*  
 
