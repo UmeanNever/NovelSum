@@ -30,9 +30,9 @@ Furthermore, we leverage NovelSum as an optimization objective to develop a gree
 
 **Our codebase supports the following functionalities:**
 - **Dataset Diversity Measurement (NovelSum)**:  
-  Measures dataset diversity using our NovelSum metric, which exhibits a 0.97 correlation with the performance of instruction-tuned models. While our experiments focus on general instruction-tuning datasets, NovelSum is broadly applicable to textual datasets across various tasks. See Section 3 and 7 of our paper for more information. To quickly get started, follow the instructions [below](#compute-the-novelsum-of-a-dataset).
+  Measures dataset diversity using our NovelSum metric, which exhibits a 0.97 correlation with the performance of instruction-tuned models. While our experiments focus on general instruction-tuning datasets, NovelSum is broadly applicable to textual datasets across various tasks (we provide guidance in the usage guide below). See Section 3 and 7 of our paper for more information. To quickly get started, follow the instructions [below](#compute-the-novelsum-of-a-dataset).
 - **Data Selection with Optimized Diversity (NovelSelect)**:  
-  Selects a diverse subset from a source dataset under a given data budget using our NovelSelect strategy, which outperforms other diversity-oriented data selection strategies. Notably, NovelSelect can seamlessly integrate with quality-based data selection methods. See Section 6 of our paper for more details. To quickly get started, follow the instructions [below](#use-novelselect-for-data-selection).
+  Selects a diverse subset from a source dataset under a given data budget using our NovelSelect strategy, which outperforms other diversity-oriented data selection strategies. Notably, NovelSelect can seamlessly integrate with quality-based data selection methods (guidance is provided in the usage guide below). See Section 6 of our paper for more details. To quickly get started, follow the instructions [below](#use-novelselect-for-data-selection).
 
 For a detailed introduction to NovelSum and NovelSelect, please refer to our paper.
 
