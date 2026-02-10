@@ -114,7 +114,7 @@ The input to **NovelSum** consists of a target dataset, for which diversity is c
 
 In practice, **the reference (source) dataset for NovelSum can be flexibly chosen** based on your use case; any domain-specific dataset may be used for specialized scenarios.
  - For general instruction-tuning tasks, the reference dataset released in our work (described above) can be directly reused.
- - If you are assessing or enhancing the target dataset relative to an existing dataset that represents a desired sample distribution, the latter dataset can naturally serve as the reference.
+ - If you are assessing or enhancing the target dataset relative to an existing dataset that represents a desired sample distribution, the latter dataset can naturally serve as the reference dataset.
    - The target dataset itself may also be used as the reference. However, this treats the target dataset’s current sample distribution as the underlying information distribution, causing existing outliers to be regarded as uninformative samples rather than unique ones. As this may deviate from the "diversity" one aims to measure, we generally recommend directly skipping the computation of information density (discussed below) instead when no reference distribution is to be considered.
  - If no such dataset is readily available, one may instead choose a medium- to large-scale dataset with a relatively natural distribution relevant to the task domain (e.g., one derived from open-source data), or alternatively use the validation set of the target task—provided that it adequately reflects the desired distribution, though this may limit generalization.
  - Moreover, if one wishes to skip the computation of information density or if the reference distribution is unknown, the reference dataset can be omitted entirely (see guidance below). In such cases, NovelSum will be computed solely from inter-sample distances (via the proximity-weighted sum), which still provides valuable insights, as shown in our ablation study.
@@ -216,7 +216,7 @@ Options:
 
 `single_dataset_path` (or `multi_datasets_dir`) and `dense_ref_dir` point to the embedding files of your target (input) and source (reference) dataset, respectively. The source dataset is optional and can be flexibly chosen based on the use case. Both datasets should be embedded and saved in the same manner. Please refer to the Data Preparation and Embedding Calculation sections above for detailed guidance.
 
-If you prefer to omit the reference dataset and skip the information-density computation, you can set `dense_ref_dir` to any dataset (e.g., simply reuse the target dataset or bypass this part in the code) and set `density_powers` to `[0]`. This way, the computed diversity will then rely solely on inter-sample distances (via the proximity-weighted sum), which still provides valuable insights.
+If you prefer to omit the reference dataset and skip the information-density computation, you can set `density_powers` to `[0]` and either point `dense_ref_dir` to any dataset (it will have no effect anyway; you can simply use the target dataset) or manually bypass the relevant code. This way, the computed diversity will then rely solely on inter-sample distances (via the proximity-weighted sum), which still provides valuable insights, as shown in our ablation study.
 
 ```
 Usage: python novelsum.py [OPTIONS]
