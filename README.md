@@ -283,7 +283,7 @@ Based on our comprehensive hyperparameter analysis, we recommend the following c
 - `proximity_power`: 1
 - `neighbors`: 10
 
-When adapting our methodology to specialized domains such as code generation or mathematical problems, the above settings serve as a solid starting point. If needed, you can experiment with different hyperparameter combinations, guided by the correlation analysis (Section 2) and hyperparameter analysis (Appendix E.1) in our paper, to identify the configuration best suited to your use case.
+When adapting our methodology to specialized domains such as code generation or mathematical problems, the above settings serve as a solid starting point. If needed, you may experiment with different hyperparameter combinations, using the correlation analysis (Section 2) and hyperparameter analysis (Appendix E.1) in our paper as guidance, to identify the configuration best suited to your use case.
 
 ## 📝 Citation
 
