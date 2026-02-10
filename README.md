@@ -160,8 +160,8 @@ We provide both the target and source datasets used in our study in the dataset 
 
 ```
 [
- "Create a detailed and exhaustive HTML guide to assist potential buyers in making a well-informed decision when purchasing a laptop." + "\n" +"<!DOCTYPE html> <html lang="en"> ..." + "\n" + "Don't use JavaScript." + "\n" + "...", # multi-turn
- "Write a short story about Japanese folklore while also incorporating the idea of reincarnation. Your story should include elements from at least two different Japanese myths or legends." + "\n" + "Once upon a time, there was ...", # single-turn
+ "Create a detailed and exhaustive HTML guide to assist potential buyers in making a well-informed decision when purchasing a laptop.\n...",  # A multi-turn dialogue is formatted as: user_1 + "\n" + assistant_1 + "\n" + user_2 + "\n" + ...
+ "Write a short story about Japanese folklore while also incorporating the idea of reincarnation. Your story should include elements from at least two different Japanese myths or legends.\n...",  # A single-turn dialogue is formatted as: user_1 + "\n" + assistant_1
  ...
 ]
 ```
