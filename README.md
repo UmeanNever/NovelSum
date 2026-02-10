@@ -216,7 +216,7 @@ Options:
 
 `single_dataset_path` (or `multi_datasets_dir`) and `dense_ref_dir` point to the embedding files of your target (input) and source (reference) dataset, respectively. The source dataset is optional and can be flexibly chosen based on the use case. Both datasets should be embedded and saved in the same manner. Please refer to the Data Preparation and Embedding Calculation sections above for detailed guidance.
 
-If you prefer to omit the reference dataset and skip the information-density computation, you can set `density_powers` to `[0]` and either point `dense_ref_dir` to any dataset (it will have no effect anyway; you can simply use the target dataset) or manually bypass the relevant code. This way, the computed diversity will then rely solely on inter-sample distances (via the proximity-weighted sum), which still provides valuable insights, as shown in our ablation study.
+If you prefer to omit the reference dataset and skip the information-density computation, you can set `density_powers` to `[0]` and either point `dense_ref_dir` to any dataset (it will have no effect anyway; you can simply reuse the target dataset) or manually bypass the relevant code. This way, the computed diversity will then rely solely on inter-sample distances (via the proximity-weighted sum), which still provides valuable insights, as shown in our ablation study.
 
 ```
 Usage: python novelsum.py [OPTIONS]
@@ -283,7 +283,7 @@ Based on our comprehensive hyperparameter analysis, we recommend the following c
 - `proximity_power`: 1
 - `neighbors`: 10
 
-When adapting our methodology to specialized domains such as code generation or mathematical problems, the above settings serve as a solid starting point. If needed, you can experiment with different hyperparameter combinations, using the correlation analysis in our paper as a guide, to identify the configuration best suited to your use case.
+When adapting our methodology to specialized domains such as code generation or mathematical problems, the above settings serve as a solid starting point. If needed, you can experiment with different hyperparameter combinations, guided by the correlation analysis (Section 2) and hyperparameter analysis (Appendix E.1) in our paper, to identify the configuration best suited to your use case.
 
 ## 📝 Citation
 
